@@ -29,6 +29,21 @@ class ItemTest < MiniTest::Unit::TestCase
     assert_equal "5:Item Expedita Aliquam", Item.find_by_name("Item Expedita Aliquam").to_s
   end
 
+  def test_it_can_find_an_item_by_description
+    Item.parse
+    assert_equal "2072:Item Esse Aut", Item.find_by_description("Qui commodi veritatis eius dolores explicabo laborum. Officia eveniet exercitationem voluptatem. Aut aut consequuntur amet. Aut earum ducimus.").to_s
+  end
+
+  def test_it_can_find_an_item_by_unit_price
+    Item.parse
+    assert_equal "1980:Item Ut Voluptatem", Item.find_by_unit_price("98771").to_s
+  end
+
+  def test_it_can_find_an_item_by_merchant_id
+    Item.parse
+    assert_equal "1:Item Qui Esse", Item.find_by_merchant_id("1").to_s
+  end
+
   def test_it_can_find_an_item_by_created_at
     Item.parse
     assert_equal "1:Item Qui Esse", Item.find_by_created_at("2012-03-27 14:53:59 UTC").to_s
@@ -57,21 +72,48 @@ class ItemTest < MiniTest::Unit::TestCase
     end
   end
 
+  def test_it_can_find_all_items_by_description
+    Item.parse
+    items = Item.find_all_by_description("Nihil autem sit odio inventore deleniti. Est laudantium ratione distinctio laborum. Minus voluptatem nesciunt assumenda dicta voluptatum porro.")
+    assert_equal 1, items.count
+    items.each do |item|
+      assert_includes "1:Item Qui Esse", item.to_s
+    end
+  end
+
+  def test_it_can_find_all_items_by_unit_price
+    Item.parse
+    items = Item.find_all_by_unit_price("68723")
+    assert_equal 1, items.count
+    items.each do |item|
+      assert_includes "5:Item Expedita Aliquam", item.to_s
+    end
+  end
+
+  def test_it_can_find_all_items_by_merchant_id
+    Item.parse
+    items = Item.find_all_by_merchant_id("1")
+    assert_equal 15, items.count
+    items.each do |item|
+      assert_includes items[0..14].to_s, item.to_s
+    end
+  end
+
   def test_it_can_find_all_items_by_created_at
     Item.parse
     items = Item.find_all_by_created_at("2012-03-27 14:53:59 UTC")
-    assert_equal 9, items.count
+    assert_equal 170, items.count
     items.each do |item|
-      assert_not_includes "2483:Item Fuga Est", item.to_s
+      assert_includes items[0..169].to_s, item.to_s
     end
   end
 
   def test_it_can_find_all_items_by_updated_at
     Item.parse
-    items = Item.find_all_by_updated_at("2012-03-27 14:54:09 UTC")
-    assert_equal 1, items.count
+    items = Item.find_all_by_updated_at("2012-03-27 14:54:08 UTC")
+    assert_equal 234, items.count
     items.each do |item|
-      assert_not_includes "1:Item Qui Esse", item.to_s
+      assert_includes items[2069..2303].to_s, item.to_s
     end
   end
 end
