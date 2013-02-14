@@ -1,4 +1,4 @@
-require './test/bundler'
+require './test/test_helper'
 
 class MerchantTest < MiniTest::Unit::TestCase
   def test_it_is_initialized_from_an_array_of_data
