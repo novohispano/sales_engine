@@ -31,7 +31,7 @@ class Item
   end
 
   def to_s
-    "#{@id}:#{name}: #{description}"
+    "#{id}:#{name}"
   end
 
   def self.random

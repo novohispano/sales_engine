@@ -25,7 +25,7 @@ class Merchant
   end
 
   def to_s
-    "#{@id}:#{name}"
+    "#{id}:#{name}"
   end
 
   def self.random
@@ -66,5 +66,5 @@ class Merchant
 
 end
 
-Merchant.parse
-Merchant.find_all_by_name("Cummings-Thiel")
+# Merchant.parse
+# Merchant.find_all_by_name("Cummings-Thiel")
