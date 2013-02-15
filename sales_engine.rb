@@ -1,3 +1,5 @@
 require "./lib/merchant"
 require "./lib/item"
 require "./lib/transaction"
+require "./lib/customer"
+require "./lib/invoice"
