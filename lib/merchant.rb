@@ -15,7 +15,7 @@ class Merchant
 
   def self.parse(filename = "./data/merchants.csv")
     @merchants = []
-    CSV.open(filename, :headers => true).collect do |row|
+    CSV.open(filename, :headers => true).each do |row|
       @merchants << Merchant.new(row)
     end
   end
@@ -63,8 +63,4 @@ class Merchant
   def self.find_all_by_updated_at(updated_at)
     @merchants.find_all {|merchant| merchant.updated_at == updated_at}
   end
-
 end
-
-# Merchant.parse
-# Merchant.find_all_by_name("Cummings-Thiel")

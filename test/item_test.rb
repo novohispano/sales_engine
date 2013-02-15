@@ -103,17 +103,11 @@ class ItemTest < MiniTest::Unit::TestCase
     Item.parse
     items = Item.find_all_by_created_at("2012-03-27 14:53:59 UTC")
     assert_equal 170, items.count
-    items.each do |item|
-      assert_includes items[0..169].to_s, item.to_s
-    end
   end
 
   def test_it_can_find_all_items_by_updated_at
     Item.parse
     items = Item.find_all_by_updated_at("2012-03-27 14:54:08 UTC")
     assert_equal 234, items.count
-    items.each do |item|
-      assert_includes items[2069..2303].to_s, item.to_s
-    end
   end
 end
