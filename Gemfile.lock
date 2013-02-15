@@ -1,6 +1,10 @@
 GEM
+  remote: https://rubygems.org/
   specs:
+    minitest (4.6.1)
+    minitest-emoji (1.0.0)
     multi_json (1.5.0)
+    rake (10.0.3)
     simplecov (0.7.1)
       multi_json (~> 1.0)
       simplecov-html (~> 0.7.1)
@@ -10,4 +14,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  minitest
+  minitest-emoji
+  rake
   simplecov
