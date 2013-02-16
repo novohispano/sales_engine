@@ -1,21 +1,21 @@
 require "csv"
 
-# id,first_name,last_name,created_at,updated_at
-
-
 class Customer
-  attr_reader :id, :first_name, :created_at, :updated_at, :last_name
+  attr_reader :id 
+  attr_reader :first_name
+  attr_reader :last_name
+  attr_reader :created_at 
+  attr_reader :updated_at
   
-
   def initialize(data)
     @id = data["id"]
     @first_name = data["first_name"]
     @last_name = data["last_name"]
-    @updated_at = data["updated_at"]
     @created_at= data ["created_at"]
+    @updated_at = data["updated_at"]
   end
 
-  def self.parse(filename = "./data/small_customers.csv")
+  def self.parse(filename = "./data/customers.csv")
     @customers = []
     CSV.open(filename, :headers => true).collect do |row|
       @customers << Customer.new(row)
@@ -38,16 +38,12 @@ class Customer
     @customers.find{|customer| customer.id == id}
   end
 
-  def self.find_all_by_updated_at(updated_at)
-    @customers.select{|customer| customer.updated_at == updated_at}
-  end
-
   def self.find_by_first_name(first_name)
     @customers.find{|customer| customer.first_name == first_name}
   end
 
-  def self.find_all_by_first_name(first_name)
-    @customers.select{|customer| customer.first_name == first_name}
+  def self.find_by_last_name(last_name)
+    @customers.find{|customer| customer.last_name == last_name}
   end
 
   def self.find_by_created_at(created_at)
@@ -58,24 +54,23 @@ class Customer
     @customers.find{|customer| customer.updated_at == updated_at}
   end
 
+  def self.find_all_by_id(id)
+    @customers.select{|customer| customer.id == id}
+  end
+
+  def self.find_all_by_first_name(first_name)
+    @customers.select{|customer| customer.first_name == first_name}
+  end
+
+  def self.find_all_by_last_name(last_name)
+    @customers.select{|customer| customer.last_name == last_name}
+  end
+
   def self.find_all_by_created_at(created_at)
     @customers.select{|customer| customer.created_at == created_at}
   end
 
-  def self.find_by_last_name(last_name)
-    @customers.find{|customer| customer.last_name == last_name}
-  end
-
-  def self.find_all_by_id(id)
-    @customers.select {|customer| customer.id == id}
+  def self.find_all_by_updated_at(updated_at)
+    @customers.select{|customer| customer.updated_at == updated_at}
   end
 end
-
-Customer.parse 
-Customer.random
-Customer.find_by_created_at("2012-03-27 14:54:10 UTC")
-Customer.find_by_first_name("Mary")
-Customer.find_by_updated_at("2012-03-27 14:54:14 UTC")
-Customer.find_by_id("7")
-#Customer.last_name
-

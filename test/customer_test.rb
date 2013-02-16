@@ -2,10 +2,12 @@ require './test/test_helper'
 
 class CustomerTest < MiniTest::Unit::TestCase
   def test_it_is_initialized_from_an_array_of_data
-    
     Customer.parse
     assert_equal "11", Customer.customers[10].id
     assert_equal "Logan", Customer.customers[10].first_name
+    assert_equal "Kris", Customer.customers[10].last_name
+    assert_equal "2012-03-27 14:54:12 UTC", Customer.customers[10].created_at
+    assert_equal "2012-03-27 14:54:12 UTC", Customer.customers[10].updated_at
   end
 
   def test_it_can_return_a_random_value
@@ -16,6 +18,11 @@ class CustomerTest < MiniTest::Unit::TestCase
   def test_it_can_find_a_customer_by_id
     Customer.parse
     assert_equal "3 Mariah", Customer.find_by_id("3").to_s
+  end
+
+  def test_it_can_find_a_customer_by_name
+    Customer.parse
+    assert_equal "3 Mariah", Customer.find_by_first_name("Mariah").to_s
   end
 
   def test_it_can_find_a_customer_by_last_name
@@ -37,7 +44,9 @@ class CustomerTest < MiniTest::Unit::TestCase
     Customer.parse
     customers = Customer.find_all_by_id("3")
     assert_equal 1, customers.count
-      assert_equal "Mariah", customers.first.first_name
+    customers.each do |customer|
+      assert_includes "3 Mariah", customer.to_s
+    end
   end
 
   def test_it_can_find_all_customers_by_first_name
@@ -46,6 +55,15 @@ class CustomerTest < MiniTest::Unit::TestCase
     assert_equal 1, customers.count
     customers.each do |customer|
       assert_includes "3 Mariah", customer.to_s
+    end
+  end
+
+  def test_it_can_find_all_customers_by_last_name
+    Customer.parse
+    customers = Customer.find_all_by_last_name("Toy")
+    assert_equal 2, customers.count
+    customers.each do |customer|
+      assert_includes "3 Mariah, 720 Luigi", customer.to_s
     end
   end
 

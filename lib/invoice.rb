@@ -1,10 +1,7 @@
 require "csv"
 
-# id,customer_id,merchant_id,status,created_at,updated_at
-
 class Invoice
   attr_reader :id, :customer_id, :merchant_id, :status, :created_at, :updated_at
-  
 
   def initialize(data)
     @id = data["id"]
@@ -25,9 +22,6 @@ class Invoice
   def to_s
     "#{id} #{customer_id} #{merchant_id} #{status}"
   end
-      # puts "Parsed #{@invoice.count} invoice."
-      # puts @invoice.to_s
-
 
   def self.random
     @invoices.sample
@@ -64,32 +58,4 @@ class Invoice
   def self.find_all_by_status(status)
     @invoices.select{|invoice| invoice.status == status}
   end
-
-
-      # find_by_id
-      # find_by_customer_id
-      # find_all_by_customer_id
-      # find_by_merchant_id
-      # find_all_by_merchant_id
-      # find_by_status
-      # find_all_by_status
-  #end
-
-  # def self.find_all_by_customer_id(invoice)
-  #   CSV.open("invoice.csv").collect do |row|
-  #     Invoice.new(row)
-      #if no match, invoice will have an empty array[]
-    #end
-  #end x 
-
 end
-
-Invoice.parse 
-Invoice.random
-Invoice.find_by_customer_id("3")
-#Invoice.find_all_by_customer_id
-#Invoice.find_all_by_merchant_id
-Invoice.find_by_status("19:54:10")
-Invoice.find_by_id("12")
-#Invoice.find_all_by_status
-Invoice.find_by_merchant_id("75")

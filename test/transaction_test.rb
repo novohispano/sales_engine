@@ -19,8 +19,6 @@ class TransactionTest < MiniTest::Unit::TestCase
     end
   end
 
-  #{id}: #{invoice_id}: #{result}
-
   def test_it_can_find_a_transaction_by_id
     Transaction.parse
     assert_equal "5: 6: success", Transaction.find_by_id("5").to_s
