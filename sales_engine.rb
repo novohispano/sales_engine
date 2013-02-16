@@ -4,6 +4,7 @@ require "./lib/item"
 require "./lib/transaction"
 require "./lib/customer"
 require "./lib/invoice"
+require "./lib/invoice_item"
 
 Parser.new
 
@@ -13,6 +14,3 @@ Parser.new
 # puts "Invoice: #{invoice}"
 # puts "Customer: #{invoice.customer}"
 # puts "Number of transactions: #{invoice.transactions.count}"
-
-transaction = Transaction.find_by_id("11")
-puts transaction.invoice

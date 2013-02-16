@@ -1,10 +1,8 @@
 require './test/test_helper'
-require './lib/invoice_item'
 
 class InvoiceItemTest < MiniTest::Unit::TestCase
-
   def test_it_is_initialized_from_an_array_of_data
-    InvoiceItem.parse
+    Parser.new
     assert_equal "1", InvoiceItem.invoice_items[0].id
     assert_equal "539", InvoiceItem.invoice_items[0].item_id
     assert_equal "1", InvoiceItem.invoice_items[0].invoice_id
@@ -14,63 +12,88 @@ class InvoiceItemTest < MiniTest::Unit::TestCase
     assert_equal "2012-03-27 14:54:09 UTC", InvoiceItem.invoice_items[0].updated_at
   end
 
-  def test_it_exists
-    invoice_items = InvoiceItem.new({})
-    assert_kind_of InvoiceItem, invoice_items
-  end
-
   def test_it_can_return_a_random_value
-    InvoiceItem.parse
+    Parser.new
     refute_equal InvoiceItem.random.to_s, InvoiceItem.random.to_s
   end
 
-  def test_it_can_find_invoice_item_by_id
-    InvoiceItem.parse
+  def test_it_can_find_an_invoice_item_by_id
+    Parser.new
     assert_equal "1 539 1", InvoiceItem.find_by_id("1").to_s
   end
 
   def test_it_can_find_invoice_item_by_item_id
-    InvoiceItem.parse
+    Parser.new
     assert_equal "1 539 1", InvoiceItem.find_by_item_id("539").to_s
   end  
 
-  def test_it_can_find_invoice_item_all_by_quantity
-    InvoiceItem.parse
-    invoice_items = InvoiceItem.find_all_by_quantity("9")
-    invoice_items.each do |item|
-      assert_includes "2 528 1", item.to_s
-    end
+  def test_it_can_find_invoice_item_by_invoice_id
+    Parser.new
+    assert_equal "9 1832 2", InvoiceItem.find_by_invoice_id("2").to_s
+  end  
+
+  def test_it_can_find_invoice_item_by_quantity
+    Parser.new
+    assert_equal "2 528 1", InvoiceItem.find_by_quantity("9").to_s
   end
 
-  def test_it_can_find_invoice_item_all_by_invoice_id
-    InvoiceItem.parse
-    invoice_items = InvoiceItem.find_all_by_invoice_id("3")
-    invoice_items.each do |item|
-      assert_includes "13 1921 3, 14 1920 3", item.to_s
-    end
+  def test_it_can_find_invoice_item_by_unit_price
+    Parser.new
+    assert_equal "7 530 1", InvoiceItem.find_by_unit_price("66747").to_s
   end
 
-  def test_it_can_find_invoice_item_all_by_unit_price
-    InvoiceItem.parse
-    invoice_items = InvoiceItem.find_all_by_unit_price("13635")
+  def test_it_can_find_invoice_item_by_created_at
+    Parser.new
+    assert_equal "205 2089 46", InvoiceItem.find_by_created_at("2012-03-27 14:54:12 UTC").to_s
+  end
+
+  def test_it_can_find_invoice_item_by_updated_at
+    Parser.new
+    assert_equal "113 1927 22", InvoiceItem.find_by_updated_at("2012-03-27 14:54:11 UTC").to_s
+  end
+
+  def test_it_can_find_all_invoice_items_by_id
+    Parser.new
+    invoice_items = InvoiceItem.find_all_by_id("1")
+    assert_equal 1, invoice_items.count
     invoice_items.each do |item|
       assert_includes "1 539 1", item.to_s
     end
   end
 
-  def test_it_can_find_invoice_item_all_by_created_at
-    InvoiceItem.parse
-    invoice_items = InvoiceItem.find_all_by_created_at("2012-03-27 14:54:09 UTC")
-    invoice_items.each do |item|
-      assert_includes "1 539 1, 2 528 1, 3 523 1, 4 535 1, 5 529 1, 6 541 1, 7 530 1, 8 534 1, 9 1832 2, 10 1830 2, 11 1849 2, 12 1845 2, 13 1921 3, 14 1920 3", item.to_s
-    end
+  def test_it_can_find_all_invoice_items_by_invoice_id
+    Parser.new
+    invoice_items = InvoiceItem.find_all_by_invoice_id("3")
+    assert_equal 8, invoice_items.count
   end
 
-  def test_it_can_find_invoice_items_all_by_updated_at
-    InvoiceItem.parse
-    invoice_items = InvoiceItem.find_all_by_updated_at("2012-03-27 14:54:09 UTC")
-    invoice_items.each do |item|
-      assert_includes "1 539 1, 2 528 1, 3 523 1, 4 535 1, 5 529 1, 6 541 1, 7 530 1, 8 534 1, 9 1832 2, 10 1830 2, 11 1849 2, 12 1845 2, 13 1921 3, 14 1920 3", item.to_s
-    end
+  def test_it_can_find_all_invoice_items_by_item_id
+    Parser.new
+    invoice_items = InvoiceItem.find_all_by_item_id("1918")
+    assert_equal 33, invoice_items.count
+  end
+
+  def test_it_can_find_all_invoice_items_by_quantity
+    Parser.new
+    invoice_items = InvoiceItem.find_all_by_quantity("10")
+    assert_equal 2140, invoice_items.count
+  end
+
+  def test_it_can_find_all_invoice_items_by_unit_price
+    Parser.new
+    invoice_items = InvoiceItem.find_all_by_unit_price("13635")
+    assert_equal 7, invoice_items.count
+  end
+
+  def test_it_can_find_all_invoice_items_by_created_at
+    Parser.new
+    invoice_items = InvoiceItem.find_all_by_created_at("2012-03-27 14:54:09 UTC")
+    assert_equal 15, invoice_items.count
+  end
+
+  def test_it_can_find_all_invoice_items_by_updated_at
+    Parser.new
+    invoice_items = InvoiceItem.find_all_by_updated_at("2012-03-27 14:54:10 UTC")
+    assert_equal 97, invoice_items.count
   end
 end

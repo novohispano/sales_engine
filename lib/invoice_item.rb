@@ -17,7 +17,7 @@ class InvoiceItem
     @updated_at = data["updated_at"]
   end
 
-  def self.build(contents)
+  def self.build_data(contents)
     @invoice_items = []
     contents.each do |row|
       @invoice_items << InvoiceItem.new(row)
@@ -27,13 +27,13 @@ class InvoiceItem
   def to_s
     "#{id} #{item_id} #{invoice_id}"
   end
-      
-  def self.random
-    @invoice_items.sample
-  end
 
   def self.invoice_items
     @invoice_items
+  end
+
+  def self.random
+    @invoice_items.sample
   end
 
   def self.find_by_id(id)
