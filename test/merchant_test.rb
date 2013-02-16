@@ -71,4 +71,16 @@ class MerchantTest < MiniTest::Unit::TestCase
       assert_includes "6:Williamson Group", merchant.to_s
     end
   end
+
+  def test_it_can_find_all_items_for_a_merchant
+    Parser.new
+    merchant = Merchant.find_by_id("2")
+    assert_equal 38, merchant.items.count
+  end
+
+  def test_it_can_find_all_invoices_for_a_merchant
+    Parser.new
+    merchant = Merchant.find_by_id("3")
+    assert_equal 43, merchant.invoices.count
+  end
 end
