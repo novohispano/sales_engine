@@ -93,4 +93,19 @@ class InvoiceTest < MiniTest::Unit::TestCase
       assert_includes "1 1 26 shipped", invoice.to_s
     end
   end
+
+  def test_it_can_find_all_transactions_for_an_invoice
+    Parser.new
+    invoice = Invoice.find_by_id("12")
+    assert_equal 3, invoice.transactions.count
+    invoice.transactions.each do |transaction|
+      assert_includes "11: 12: failed, 12: 12: failed, 13: 12: success", transaction.to_s
+    end
+  end
+
+  def test_it_can_find_the_customer_associated_with_an_invoice
+    Parser.new
+    invoice = Invoice.find_by_id("12")
+    assert_equal "3 Mariah", invoice.customer.to_s
+  end
 end
