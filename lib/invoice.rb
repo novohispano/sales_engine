@@ -86,6 +86,10 @@ class Invoice
     Transaction.find_all_by_invoice_id(id)
   end
 
+  def invoice_items
+    InvoiceItem.find_all_by_invoice_id(id)
+  end
+
   def customer
     Customer.find_by_id(customer_id)
   end
