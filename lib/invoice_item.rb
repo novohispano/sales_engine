@@ -1,7 +1,11 @@
-require "csv"
-
 class InvoiceItem
-  attr_reader :id, :item_id, :invoice_id, :quantity, :unit_price, :created_at, :updated_at
+  attr_reader :id, 
+              :item_id, 
+              :invoice_id, 
+              :quantity, 
+              :unit_price, 
+              :created_at, 
+              :updated_at
   
   def initialize(data)
     @id = data["id"]
@@ -13,9 +17,9 @@ class InvoiceItem
     @updated_at = data["updated_at"]
   end
 
-  def self.parse(filename = "./data/small_invoice_items.csv")
+  def self.build(contents)
     @invoice_items = []
-    CSV.open(filename, :headers => true).collect do |row|
+    contents.each do |row|
       @invoice_items << InvoiceItem.new(row)
     end
   end
@@ -40,6 +44,34 @@ class InvoiceItem
     @invoice_items.find{|invoice_item| invoice_item.item_id == item_id}
   end
   
+  def self.find_by_invoice_id(invoice_id)
+    @invoice_items.find{|invoice_item| invoice_item.invoice_id == invoice_id}
+  end
+
+  def self.find_by_quantity(quantity)
+    @invoice_items.find{|invoice_item| invoice_item.quantity == quantity}
+  end
+
+  def self.find_by_unit_price(unit_price)
+    @invoice_items.find{|invoice_item| invoice_item.unit_price == unit_price}
+  end
+
+  def self.find_by_created_at(created_at)
+    @invoice_items.find{|invoice_item| invoice_item.created_at == created_at}
+  end
+
+  def self.find_by_updated_at(updated_at)
+    @invoice_items.find{|invoice_item| invoice_item.updated_at == updated_at}
+  end
+
+  def self.find_all_by_id(id)
+    @invoice_items.select{|invoice_item| invoice_item.id == id}
+  end  
+
+  def self.find_all_by_item_id(item_id)
+    @invoice_items.select{|invoice_item| invoice_item.item_id == item_id}
+  end  
+
   def self.find_all_by_invoice_id(invoice_id)
     @invoice_items.select{|invoice_item| invoice_item.invoice_id == invoice_id}
   end  

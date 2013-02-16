@@ -24,12 +24,12 @@ class Item
     end
   end
 
-  def self.items
-    @items
-  end
-
   def to_s
     "#{id}:#{name}"
+  end
+
+  def self.items
+    @items
   end
 
   def self.random
