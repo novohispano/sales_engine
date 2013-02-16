@@ -110,4 +110,10 @@ class ItemTest < MiniTest::Unit::TestCase
     items = Item.find_all_by_updated_at("2012-03-27 14:54:08 UTC")
     assert_equal 234, items.count
   end
+
+  def test_it_can_find_all_invoice_items_related_to_item
+    Parser.new
+    items = Item.find_by_id("2")
+    assert_equal 17, items.invoice_items.count
+  end
 end
