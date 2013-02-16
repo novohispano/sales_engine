@@ -1,13 +1,13 @@
 require "csv"
 
 class Item
-  attr_reader :id
-  attr_reader :name
-  attr_reader :description
-  attr_reader :unit_price
-  attr_reader :merchant_id
-  attr_reader :created_at
-  attr_reader :updated_at
+  attr_reader :id,
+              :name,
+              :description,
+              :unit_price,
+              :merchant_id,
+              :created_at,
+              :updated_at
 
   def initialize(data)
     @id = data["id"]

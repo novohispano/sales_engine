@@ -1,10 +1,10 @@
 require "csv"
 
 class Merchant
-  attr_reader :id
-  attr_reader :name
-  attr_reader :created_at
-  attr_reader :updated_at
+  attr_reader :id,
+              :name,
+              :created_at,
+              :updated_at
 
   def initialize(data)
     @id = data["id"]

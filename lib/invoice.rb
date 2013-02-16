@@ -1,12 +1,12 @@
 require "csv"
 
 class Invoice
-  attr_reader :id
-  attr_reader :customer_id
-  attr_reader :merchant_id
-  attr_reader :status
-  attr_reader :created_at
-  attr_reader :updated_at
+  attr_reader :id,
+              :customer_id,
+              :merchant_id,
+              :status,
+              :created_at,
+              :updated_at
 
   def initialize(data)
     @id = data["id"]
