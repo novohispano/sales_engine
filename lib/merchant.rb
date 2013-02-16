@@ -1,10 +1,8 @@
-require "csv"
-
 class Merchant
-  attr_reader :id
-  attr_reader :name
-  attr_reader :created_at
-  attr_reader :updated_at
+  attr_reader :id,
+              :name,
+              :created_at,
+              :updated_at
 
   def initialize(data)
     @id = data["id"]
@@ -13,9 +11,9 @@ class Merchant
     @updated_at = data["updated_at"]
   end
 
-  def self.parse(filename = "./data/merchants.csv")
+  def self.build_data(contents)
     @merchants = []
-    CSV.open(filename, :headers => true).each do |row|
+    contents.each do |row|
       @merchants << Merchant.new(row)
     end
   end
@@ -62,5 +60,13 @@ class Merchant
 
   def self.find_all_by_updated_at(updated_at)
     @merchants.find_all {|merchant| merchant.updated_at == updated_at}
+  end
+
+  def items
+    Item.find_all_by_merchant_id(id)
+  end
+
+  def invoices
+    Invoice.find_all_by_merchant_id(id)
   end
 end

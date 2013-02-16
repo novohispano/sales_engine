@@ -1,10 +1,10 @@
-require "csv"
-
-# id,customer_id,merchant_id,status,created_at,updated_at
-
 class Invoice
-  attr_reader :id, :customer_id, :merchant_id, :status, :created_at, :updated_at
-  
+  attr_reader :id,
+              :customer_id,
+              :merchant_id,
+              :status,
+              :created_at,
+              :updated_at
 
   def initialize(data)
     @id = data["id"]
@@ -12,12 +12,12 @@ class Invoice
     @merchant_id= data ["merchant_id"]
     @status = data["status"]
     @created_at = data["created_at"]
-    @updated_at = data["created_at"]
+    @updated_at = data["updated_at"]
   end
 
-  def self.parse(filename = "./data/small_invoice.csv")
+  def self.build_data(contents)
     @invoices = []
-    CSV.open(filename, :headers => true).collect do |row|
+    contents.each do |row|
       @invoices << Invoice.new(row)
     end
   end
@@ -25,9 +25,6 @@ class Invoice
   def to_s
     "#{id} #{customer_id} #{merchant_id} #{status}"
   end
-      # puts "Parsed #{@invoice.count} invoice."
-      # puts @invoice.to_s
-
 
   def self.random
     @invoices.sample
@@ -37,59 +34,59 @@ class Invoice
     @invoices
   end
 
-  def self.find_by_customer_id(customer_id)
-    @invoices.find{|invoice| invoice.customer_id == customer_id}
-  end
-
-  def self.find_all_by_customer_id(customer_id)
-    @invoices.select{|invoice| invoice.customer_id == customer_id}
-  end  
-
-  def self.find_by_merchant_id(merchant_id)
-    @invoices.find{|invoice| invoice.merchant_id == merchant_id}
-  end
-
   def self.find_by_id(id)
     @invoices.find{|invoice| invoice.id == id}
   end
 
-  def self.find_all_by_merchant_id(merchant_id)
-    @invoices.select{|invoice| invoice.merchant_id == merchant_id}
+  def self.find_by_customer_id(customer_id)
+    @invoices.find{|invoice| invoice.customer_id == customer_id}
+  end
+
+  def self.find_by_merchant_id(merchant_id)
+    @invoices.find{|invoice| invoice.merchant_id == merchant_id}
   end
 
   def self.find_by_status(status)
     @invoices.find{|invoice| invoice.status == status}
   end
 
+  def self.find_by_created_at(created_at)
+    @invoices.find{|invoice| invoice.created_at == created_at}
+  end
+
+  def self.find_by_updated_at(updated_at)
+    @invoices.find{|invoice| invoice.updated_at == updated_at}
+  end
+
+  def self.find_all_by_id(id)
+    @invoices.select{|invoice| invoice.id == id}
+  end
+
+  def self.find_all_by_customer_id(customer_id)
+    @invoices.select{|invoice| invoice.customer_id == customer_id}
+  end  
+
+  def self.find_all_by_merchant_id(merchant_id)
+    @invoices.select{|invoice| invoice.merchant_id == merchant_id}
+  end
+
   def self.find_all_by_status(status)
     @invoices.select{|invoice| invoice.status == status}
   end
 
+  def self.find_all_by_created_at(created_at)
+    @invoices.select{|invoice| invoice.created_at == created_at}
+  end
 
-      # find_by_id
-      # find_by_customer_id
-      # find_all_by_customer_id
-      # find_by_merchant_id
-      # find_all_by_merchant_id
-      # find_by_status
-      # find_all_by_status
-  #end
+  def self.find_all_by_updated_at(updated_at)
+    @invoices.select{|invoice| invoice.updated_at == updated_at}
+  end
 
-  # def self.find_all_by_customer_id(invoice)
-  #   CSV.open("invoice.csv").collect do |row|
-  #     Invoice.new(row)
-      #if no match, invoice will have an empty array[]
-    #end
-  #end x 
+  def transactions
+    Transaction.find_all_by_invoice_id(id)
+  end
 
+  def customer
+    Customer.find_by_id(customer_id)
+  end
 end
-
-Invoice.parse 
-Invoice.random
-Invoice.find_by_customer_id("3")
-#Invoice.find_all_by_customer_id
-#Invoice.find_all_by_merchant_id
-Invoice.find_by_status("19:54:10")
-Invoice.find_by_id("12")
-#Invoice.find_all_by_status
-Invoice.find_by_merchant_id("75")

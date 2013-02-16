@@ -2,46 +2,55 @@ require './test/test_helper'
 
 class CustomerTest < MiniTest::Unit::TestCase
   def test_it_is_initialized_from_an_array_of_data
-    
-    Customer.parse
+    Parser.new
     assert_equal "11", Customer.customers[10].id
     assert_equal "Logan", Customer.customers[10].first_name
+    assert_equal "Kris", Customer.customers[10].last_name
+    assert_equal "2012-03-27 14:54:12 UTC", Customer.customers[10].created_at
+    assert_equal "2012-03-27 14:54:12 UTC", Customer.customers[10].updated_at
   end
 
   def test_it_can_return_a_random_value
-    Customer.parse
+    Parser.new
     refute_equal Customer.random.to_s, Customer.random.to_s
   end
 
   def test_it_can_find_a_customer_by_id
-    Customer.parse
+    Parser.new
     assert_equal "3 Mariah", Customer.find_by_id("3").to_s
   end
 
+  def test_it_can_find_a_customer_by_name
+    Parser.new
+    assert_equal "3 Mariah", Customer.find_by_first_name("Mariah").to_s
+  end
+
   def test_it_can_find_a_customer_by_last_name
-    Customer.parse
+    Parser.new
     assert_equal "3 Mariah", Customer.find_by_last_name("Toy").to_s
   end
 
   def test_it_can_find_a_customer_by_created_at
-    Customer.parse
+    Parser.new
     assert_equal "11 Logan", Customer.find_by_created_at("2012-03-27 14:54:12 UTC").to_s
   end
 
   def test_it_can_find_a_customer_by_updated_at
-    Customer.parse
+    Parser.new
     assert_includes "2 Cecelia", Customer.find_by_updated_at("2012-03-27 14:54:10 UTC").to_s
   end
 
   def test_it_can_find_all_customers_by_id
-    Customer.parse
+    Parser.new
     customers = Customer.find_all_by_id("3")
     assert_equal 1, customers.count
-      assert_equal "Mariah", customers.first.first_name
+    customers.each do |customer|
+      assert_includes "3 Mariah", customer.to_s
+    end
   end
 
   def test_it_can_find_all_customers_by_first_name
-    Customer.parse
+    Parser.new
     customers = Customer.find_all_by_first_name("Mariah")
     assert_equal 1, customers.count
     customers.each do |customer|
@@ -49,8 +58,17 @@ class CustomerTest < MiniTest::Unit::TestCase
     end
   end
 
+  def test_it_can_find_all_customers_by_last_name
+    Parser.new
+    customers = Customer.find_all_by_last_name("Toy")
+    assert_equal 2, customers.count
+    customers.each do |customer|
+      assert_includes "3 Mariah, 720 Luigi", customer.to_s
+    end
+  end
+
   def test_it_can_find_all_customers_by_created_at
-    Customer.parse
+    Parser.new
     customers = Customer.find_all_by_created_at("2012-03-27 14:54:10 UTC")
     assert_equal 6, customers.count
     customers.each do |customer|
@@ -59,11 +77,20 @@ class CustomerTest < MiniTest::Unit::TestCase
   end
 
   def test_it_can_find_all_customers_by_updated_at
-    Customer.parse
+    Parser.new
     customers = Customer.find_all_by_updated_at("2012-03-27 14:54:10 UTC")
     assert_equal 6, customers.count
     customers.each do |customer|
       assert_includes "2 Cecelia, 3 Mariah, 4 Leanne, 5 Sylvester, 6 Heber, 7 Parker", customer.to_s
+    end
+  end
+
+  def test_it_can_find_all_invoices_associated_with_a_customer
+    Parser.new
+    customer = Customer.find_by_id("3")
+    assert_equal 4, customer.invoices.count
+    customer.invoices.each do |invoice|
+      assert_includes "10 3 86 shipped, 11 3 62 shipped, 12 3 8 shipped, 13 3 34 shipped", invoice.to_s
     end
   end
 end

@@ -1,13 +1,11 @@
-require "csv"
-
 class Transaction
-  attr_reader :id
-  attr_reader :invoice_id
-  attr_reader :credit_card_number
-  attr_reader :credit_card_expiration_date
-  attr_reader :result
-  attr_reader :created_at
-  attr_reader :updated_at
+  attr_reader :id,
+              :invoice_id,
+              :credit_card_number,
+              :credit_card_expiration_date,
+              :result,
+              :created_at,
+              :updated_at
 
   def initialize(data)
     @id = data["id"]
@@ -19,9 +17,9 @@ class Transaction
     @updated_at = data["updated_at"]
   end
 
-  def self.parse(filename = "./data/transactions.csv")
+  def self.build_data(contents)
     @transactions = []
-    CSV.open(filename, :headers => true).each do |row|
+    contents.each do |row|
       @transactions << Transaction.new(row)
     end
   end
@@ -76,5 +74,9 @@ class Transaction
 
   def self.find_all_by_updated_at(updated_at)
     @transactions.find_all {|transaction| transaction.updated_at == updated_at}
+  end
+
+  def invoice
+    Invoice.find_by_id(invoice_id)
   end
 end
