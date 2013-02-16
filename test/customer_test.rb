@@ -84,4 +84,13 @@ class CustomerTest < MiniTest::Unit::TestCase
       assert_includes "2 Cecelia, 3 Mariah, 4 Leanne, 5 Sylvester, 6 Heber, 7 Parker", customer.to_s
     end
   end
+
+  def test_it_can_find_all_invoices_associated_with_a_customer
+    Parser.new
+    customer = Customer.find_by_id("3")
+    assert_equal 4, customer.invoices.count
+    customer.invoices.each do |invoice|
+      assert_includes "10 3 86 shipped, 11 3 62 shipped, 12 3 8 shipped, 13 3 34 shipped", invoice.to_s
+    end
+  end
 end

@@ -7,17 +7,15 @@ require "./lib/invoice"
 
 Parser.new
 
-invoice = Invoice.find_by_id("12")
+# invoice = Invoice.find_by_id("12")
+# puts invoice.transactions
 
-puts invoice.transactions
+# puts "Invoice: #{invoice}"
+# puts "Customer: #{invoice.customer}"
+# puts "Number of transactions: #{invoice.transactions.count}"
 
-puts "Invoice: #{invoice}"
-puts "Customer: #{invoice.customer}"
-puts "Number of transactions: #{invoice.transactions.count}"
+customer = Customer.find_by_id("3")
+puts customer.invoices
 
-# puts merchant.items
-# puts merchant.invoices
-# puts ""
-# puts "Merchant: #{merchant}"
-# puts "Number of Items: #{merchant.items.count}"
-# puts "Number of Invoices: #{merchant.invoices.count}"
+puts "Customer: #{customer}"
+puts "Number of invoices #{customer.invoices.count}"
