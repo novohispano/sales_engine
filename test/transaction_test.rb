@@ -82,4 +82,10 @@ class TransactionTest < MiniTest::Unit::TestCase
     transactions = Transaction.find_all_by_updated_at("2012-03-27 14:54:09 UTC")
     assert_equal 2, transactions.count
   end
+
+  def test_it_can_find_an_invoice_associated_with_a_transaction
+    Parser.new
+    transaction = Transaction.find_by_id("11")
+    assert_equal "12 3 8 shipped", transaction.invoice.to_s
+  end
 end
