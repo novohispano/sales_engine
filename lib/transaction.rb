@@ -1,5 +1,3 @@
-require "csv"
-
 class Transaction
   attr_reader :id,
               :invoice_id,
@@ -19,9 +17,9 @@ class Transaction
     @updated_at = data["updated_at"]
   end
 
-  def self.parse(filename = "./data/transactions.csv")
+  def self.build_data(contents)
     @transactions = []
-    CSV.open(filename, :headers => true).each do |row|
+    contents.each do |row|
       @transactions << Transaction.new(row)
     end
   end

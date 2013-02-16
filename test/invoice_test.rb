@@ -2,7 +2,7 @@ require './test/test_helper'
 
 class InvoiceTest < MiniTest::Unit::TestCase
   def test_it_is_initialized_from_an_array_of_data
-    Invoice.parse
+    Parser.new
     assert_equal "1", Invoice.invoices[0].id
     assert_equal "1", Invoice.invoices[0].customer_id
     assert_equal "26", Invoice.invoices[0].merchant_id
@@ -12,42 +12,42 @@ class InvoiceTest < MiniTest::Unit::TestCase
   end
 
   def test_it_can_return_a_random_value
-    Invoice.parse
+    Parser.new
     refute_equal Invoice.random.to_s, Invoice.random.to_s
   end
 
   def test_it_can_find_by_id
-    Invoice.parse
+    Parser.new
     assert_equal "1 1 26 shipped", Invoice.find_by_id("1").to_s
   end
 
   def test_it_can_find_by_customer_id
-    Invoice.parse
+    Parser.new
     assert_equal "1 1 26 shipped", Invoice.find_by_customer_id("1").to_s
   end
 
   def test_it_can_find_by_merchant_id
-    Invoice.parse
+    Parser.new
     assert_equal "1 1 26 shipped", Invoice.find_by_merchant_id("26").to_s
   end
 
   def test_it_can_find_by_status
-    Invoice.parse
+    Parser.new
     assert_equal "1 1 26 shipped", Invoice.find_by_status("shipped").to_s
   end
 
   def test_it_can_find_by_created_at
-    Invoice.parse
+    Parser.new
     assert_equal "1 1 26 shipped", Invoice.find_by_created_at("2012-03-25 09:54:09 UTC").to_s
   end
 
   def test_it_can_find_by_updated_at
-    Invoice.parse
+    Parser.new
     assert_equal "1 1 26 shipped", Invoice.find_by_updated_at("2012-03-25 09:54:09 UTC").to_s
   end
 
   def test_it_can_find_all_by_id
-    Invoice.parse
+    Parser.new
     invoices = Invoice.find_all_by_id("1")
     assert_equal 1, invoices.count
     invoices.each do |invoice|
@@ -56,7 +56,7 @@ class InvoiceTest < MiniTest::Unit::TestCase
   end
 
   def test_it_can_find_all_by_customer_id
-    Invoice.parse
+    Parser.new
     invoices = Invoice.find_all_by_customer_id("3")
     assert_equal 4, invoices.count
     invoices.each do |invoice|
@@ -65,19 +65,19 @@ class InvoiceTest < MiniTest::Unit::TestCase
   end
 
   def test_it_can_find_all_by_merchant_id
-    Invoice.parse
+    Parser.new
     invoices = Invoice.find_all_by_merchant_id("26")
     assert_equal 48, invoices.count
   end
 
   def test_it_can_find_all_by_status
-    Invoice.parse
+    Parser.new
     invoices = Invoice.find_all_by_status("shipped")
     assert_equal 4843, invoices.count
   end
 
   def test_it_can_find_all_by_created_at
-    Invoice.parse
+    Parser.new
     invoices = Invoice.find_all_by_created_at("2012-03-25 09:54:09 UTC")
     assert_equal 1, invoices.count
     invoices.each do |invoice|
@@ -86,7 +86,7 @@ class InvoiceTest < MiniTest::Unit::TestCase
   end
 
   def test_it_can_find_all_by_updated_at
-    Invoice.parse
+    Parser.new
     invoices = Invoice.find_all_by_updated_at("2012-03-25 09:54:09 UTC")
     assert_equal 1, invoices.count
     invoices.each do |invoice|

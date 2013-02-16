@@ -2,7 +2,7 @@ require './test/test_helper'
 
 class TransactionTest < MiniTest::Unit::TestCase
   def test_it_is_initialized_from_an_array_of_data
-    Transaction.parse
+    Parser.new
     assert_equal "1", Transaction.transactions[0].id
     assert_equal "1", Transaction.transactions[0].invoice_id
     assert_equal "4654405418249632", Transaction.transactions[0].credit_card_number
@@ -13,39 +13,39 @@ class TransactionTest < MiniTest::Unit::TestCase
   end
 
   def test_it_can_return_a_random_value
-    Transaction.parse
+    Parser.new
     10.times do
       refute_equal Transaction.random.to_s, Transaction.random.to_s
     end
   end
 
   def test_it_can_find_a_transaction_by_id
-    Transaction.parse
+    Parser.new
     assert_equal "5: 6: success", Transaction.find_by_id("5").to_s
   end
 
   def test_it_can_find_a_transaction_by_invoice_id
-    Transaction.parse
+    Parser.new
     assert_equal "5: 6: success", Transaction.find_by_invoice_id("6").to_s
   end
 
   def test_it_can_find_a_transaction_by_result
-    Transaction.parse
+    Parser.new
     assert_equal "1: 1: success", Transaction.find_by_result("success").to_s
   end
 
   def test_it_can_find_a_transaction_by_created_at
-    Transaction.parse
+    Parser.new
     assert_equal "1: 1: success", Transaction.find_by_created_at("2012-03-27 14:54:09 UTC").to_s
   end
 
   def test_it_can_find_a_transaction_by_updated_at
-    Transaction.parse
+    Parser.new
     assert_equal "1: 1: success", Transaction.find_by_updated_at("2012-03-27 14:54:09 UTC").to_s
   end
 
   def test_it_can_find_all_transactions_by_id
-    Transaction.parse
+    Parser.new
     transactions = Transaction.find_all_by_id("5")
     assert_equal 1, transactions.count
     transactions.each do |transaction|
@@ -54,7 +54,7 @@ class TransactionTest < MiniTest::Unit::TestCase
   end
 
   def test_it_can_find_all_transactions_by_invoice_id
-    Transaction.parse
+    Parser.new
     transactions = Transaction.find_all_by_invoice_id("13")
     assert_equal 2, transactions.count
     transactions.each do |transaction|
@@ -63,13 +63,13 @@ class TransactionTest < MiniTest::Unit::TestCase
   end
 
   def test_it_can_find_all_transactions_by_result
-    Transaction.parse
+    Parser.new
     transactions = Transaction.find_all_by_result("failed")
     assert_equal 947, transactions.count
   end
 
   def test_it_can_find_all_transactions_by_created_at
-    Transaction.parse
+    Parser.new
     transactions = Transaction.find_all_by_created_at("2012-03-27 14:54:09 UTC")
     assert_equal 2, transactions.count
     transactions.each do |transaction|
@@ -78,7 +78,7 @@ class TransactionTest < MiniTest::Unit::TestCase
   end
 
   def test_it_can_find_all_transactions_by_updated_at
-    Transaction.parse
+    Parser.new
     transactions = Transaction.find_all_by_updated_at("2012-03-27 14:54:09 UTC")
     assert_equal 2, transactions.count
   end

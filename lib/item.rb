@@ -1,5 +1,3 @@
-require "csv"
-
 class Item
   attr_reader :id,
               :name,
@@ -19,9 +17,9 @@ class Item
     @updated_at = data["updated_at"]
   end
 
-  def self.parse(filename = "./data/items.csv")
+  def self.build_data(contents)
     @items = []
-    CSV.open(filename, :headers => true).each do |row|
+    contents.each do |row|
       @items << Item.new(row)
     end
   end
@@ -93,14 +91,4 @@ class Item
   def self.find_all_by_updated_at(updated_at)
     @items.find_all {|item| item.updated_at == updated_at}
   end
-
-  # def merchant(merchant_id)
-  #   merchant = Merchant.find_by_id(merchant_id)
-  #   puts merchant
-  #   return merchant
-  # end
 end
-
-#Item.parse
-#item = Item.random
-#item
