@@ -14,10 +14,10 @@ class Invoice
     @merchant_id= data ["merchant_id"]
     @status = data["status"]
     @created_at = data["created_at"]
-    @updated_at = data["created_at"]
+    @updated_at = data["updated_at"]
   end
 
-  def self.parse(filename = "./data/small_invoice.csv")
+  def self.parse(filename = "./data/invoices.csv")
     @invoices = []
     CSV.open(filename, :headers => true).collect do |row|
       @invoices << Invoice.new(row)
