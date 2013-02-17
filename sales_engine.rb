@@ -16,10 +16,3 @@ Parser.new
 # puts "Customer: #{invoice.customer}"
 # puts "Number of transactions: #{invoice.transactions.count}"
 # puts "Number of invoice items: #{invoice.invoice_items.count}"
-
-item = Item.find_by_id("2")
-
-puts item.invoice_items
-
-puts "Item: #{item}"
-puts "Number of invoice items: #{item.invoice_items.count}"
