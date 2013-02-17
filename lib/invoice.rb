@@ -90,6 +90,13 @@ class Invoice
     InvoiceItem.find_all_by_invoice_id(id)
   end
 
+  def items
+    items = []
+    InvoiceItem.find_all_by_invoice_id(id).each do |item_id|
+      items << Item.find_by_id(item_id)
+    end
+  end
+
   def customer
     Customer.find_by_id(customer_id)
   end
