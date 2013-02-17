@@ -91,4 +91,12 @@ class Item
   def self.find_all_by_updated_at(updated_at)
     @items.find_all {|item| item.updated_at == updated_at}
   end
+
+  def invoice_items
+    InvoiceItem.find_all_by_item_id(id)
+  end
+
+  def merchant
+    Merchant.find_by_id(merchant_id)
+  end
 end

@@ -110,4 +110,16 @@ class ItemTest < MiniTest::Unit::TestCase
     items = Item.find_all_by_updated_at("2012-03-27 14:54:08 UTC")
     assert_equal 234, items.count
   end
+
+  def test_it_can_find_all_invoice_items_related_to_item
+    Parser.new
+    item = Item.find_by_id("2")
+    assert_equal 17, item.invoice_items.count
+  end
+
+  def test_it_can_find_a_merchant_related_to_item
+    Parser.new
+    item = Item.find_by_id("2")
+    assert_equal "1:Schroeder-Jerde", item.merchant.to_s
+  end
 end

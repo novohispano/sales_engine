@@ -10,7 +10,9 @@ Parser.new
 
 # invoice = Invoice.find_by_id("12")
 # puts invoice.transactions
+# puts invoice.invoice_items
 
 # puts "Invoice: #{invoice}"
 # puts "Customer: #{invoice.customer}"
 # puts "Number of transactions: #{invoice.transactions.count}"
+# puts "Number of invoice items: #{invoice.invoice_items.count}"

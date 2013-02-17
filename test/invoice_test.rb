@@ -103,6 +103,15 @@ class InvoiceTest < MiniTest::Unit::TestCase
     end
   end
 
+  def test_it_can_find_all_invoices_items_associated_to_an_invoice
+    Parser.new
+    invoice = Invoice.find_by_id("12")
+    assert_equal 6, invoice.invoice_items.count
+    invoice.invoice_items.each do |invoice_item|
+      assert_includes "56 150 12, 57 127 12, 58 156 12, 59 160 12, 60 127 12, 61 134 12", invoice_item.to_s
+    end
+  end
+
   def test_it_can_find_the_customer_associated_with_an_invoice
     Parser.new
     invoice = Invoice.find_by_id("12")
