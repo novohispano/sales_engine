@@ -91,9 +91,8 @@ class Invoice
   end
 
   def items
-    items = []
-    InvoiceItem.find_all_by_invoice_id(id).each do |item_id|
-      items << Item.find_by_id(item_id)
+    InvoiceItem.find_all_by_invoice_id(id).collect do |invoice_item|
+      invoice_item.item
     end
   end
 

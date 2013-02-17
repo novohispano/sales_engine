@@ -112,9 +112,18 @@ class InvoiceTest < MiniTest::Unit::TestCase
     end
   end
 
-  def test_it_can_find_the_customer_associated_with_an_invoice
+  def test_it_can_find_the_customer_associated_to_an_invoice
     Parser.new
     invoice = Invoice.find_by_id("12")
     assert_equal "3 Mariah", invoice.customer.to_s
+  end
+
+  def test_it_can_find_items_associated_to_an_invoice
+    Parser.new
+    invoice = Invoice.find_by_id("10")
+    assert_equal 5, invoice.items.count
+    invoice.items.each do |item|
+      assert_includes "2061:Item Ratione Dolor, 2055:Item Soluta Nihil, 2087:Item Cupiditate Architecto, 2089:Item Labore Molestias, 2059:Item Corrupti Earum", item.to_s
+    end
   end
 end
