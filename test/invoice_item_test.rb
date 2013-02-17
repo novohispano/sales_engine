@@ -96,4 +96,16 @@ class InvoiceItemTest < MiniTest::Unit::TestCase
     invoice_items = InvoiceItem.find_all_by_updated_at("2012-03-27 14:54:10 UTC")
     assert_equal 97, invoice_items.count
   end
+
+  def test_it_can_find_invoice_for_a_invoice_item
+    Parser.new
+    invoice_item = InvoiceItem.find_by_id("2")
+    assert_equal "1 1 26 shipped", invoice_item.invoice.to_s
+  end
+
+  def test_it_can_find_item_for_a_invoice_item
+    Parser.new
+    invoice_item = InvoiceItem.find_by_id("3")
+    assert_equal "523:Item Pariatur Quia", invoice_item.item.to_s
+  end
 end
