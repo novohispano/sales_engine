@@ -7,5 +7,3 @@ require "./lib/invoice"
 require "./lib/invoice_item"
 
 Parser.new
-
-puts Merchant.most_revenue(10)

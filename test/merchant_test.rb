@@ -88,4 +88,9 @@ class MerchantTest < MiniTest::Unit::TestCase
     merchant = Merchant.find_by_id("2")
     assert_equal 436253.18999999994, merchant.revenue
   end
+
+  def test_it_can_get_merchants_by_most_revenue
+    assert_equal 10, Merchant.most_revenue(10).count
+    assert_equal "[[14:Dicki-Bednar, 1148393.7399999998]]", Merchant.most_revenue(1).to_s
+  end
 end
