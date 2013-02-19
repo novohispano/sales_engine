@@ -70,16 +70,13 @@ class Merchant
     Invoice.find_all_by_merchant_id(id)
   end
 
-  # def self.most_revenue(number)
-  #   Merchant[0..number].invoices.collect do |invoice|
-  #     invoice.transactions.find |status| 
-  #     passed_transactions << transaction.status == passed
-  #   end
-  #   passed_transactions.invoice.collect do |invoice|
-  #     revenue = 0
-  #     invoice.invoice_items.collect do |quantity, unit_price|
-  #       revenue = revenue + (invoice_items.quantity * unit_price)
-  #     end
-  #   end
-  # end
+  def total
+    invoices.each do |invoice|
+      if invoice.successful?
+        invoice_items.reduce(0) do |total, invoice_item| 
+          total + invoice_item.subtotal
+        end
+      end
+    end
+  end
 end
