@@ -94,6 +94,11 @@ class MerchantTest < MiniTest::Unit::TestCase
     assert_equal 436253.18999999994, merchant.revenue
   end
 
+  def test_it_can_get_merchants_by_total_quantity
+    assert_equal 10, Merchant.most_items(10).count
+    assert_equal "[[89:Kassulke, O'Hara and Quitzon, 1653]]", Merchant.most_items(1).to_s
+  end
+
   def test_it_can_get_merchants_by_most_revenue
     assert_equal 10, Merchant.most_revenue(10).count
     assert_equal "[[14:Dicki-Bednar, 1148393.7399999998]]", Merchant.most_revenue(1).to_s
