@@ -18,10 +18,7 @@ class Item
   end
 
   def self.build_data(contents)
-    @items = []
-    contents.each do |row|
-      @items << Item.new(row)
-    end
+    @items = contents.collect { |row| Item.new(row) }
   end
 
   def to_s
@@ -37,59 +34,59 @@ class Item
   end
 
   def self.find_by_id(id)
-    @items.find {|item| item.id == id}
+    @items.find { |item| item.id == id }
   end
 
   def self.find_by_name(name)
-    @items.find {|item| item.name == name}
+    @items.find { |item| item.name == name }
   end
 
   def self.find_by_description(description)
-    @items.find {|item| item.description == description}
+    @items.find { |item| item.description == description }
   end
 
   def self.find_by_unit_price(unit_price)
-    @items.find {|item| item.unit_price == unit_price}
+    @items.find { |item| item.unit_price == unit_price }
   end
 
   def self.find_by_merchant_id(merchant_id)
-    @items.find {|item| item.merchant_id == merchant_id}
+    @items.find { |item| item.merchant_id == merchant_id }
   end
 
   def self.find_by_created_at(created_at)
-    @items.find {|item| item.created_at == created_at}
+    @items.find { |item| item.created_at == created_at }
   end
 
   def self.find_by_updated_at(updated_at)
-    @items.find {|item| item.updated_at == updated_at}
+    @items.find { |item| item.updated_at == updated_at }
   end
 
   def self.find_all_by_id(id)
-    @items.find_all {|item| item.id == id}
+    @items.find_all { |item| item.id == id }
   end
 
   def self.find_all_by_name(name)
-    @items.find_all {|item| item.name == name}
+    @items.find_all { |item| item.name == name }
   end
 
   def self.find_all_by_description(description)
-    @items.find_all {|item| item.description == description}
+    @items.find_all { |item| item.description == description }
   end
 
   def self.find_all_by_unit_price(unit_price)
-    @items.find_all {|item| item.unit_price == unit_price}
+    @items.find_all { |item| item.unit_price == unit_price }
   end
 
   def self.find_all_by_merchant_id(merchant_id)
-    @items.find_all {|item| item.merchant_id == merchant_id}
+    @items.find_all { |item| item.merchant_id == merchant_id }
   end
 
   def self.find_all_by_created_at(created_at)
-    @items.find_all {|item| item.created_at == created_at}
+    @items.find_all { |item| item.created_at == created_at }
   end
 
   def self.find_all_by_updated_at(updated_at)
-    @items.find_all {|item| item.updated_at == updated_at}
+    @items.find_all { |item| item.updated_at == updated_at }
   end
 
   def invoice_items

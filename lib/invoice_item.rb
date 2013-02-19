@@ -15,14 +15,10 @@ class InvoiceItem
     @unit_price = data["unit_price"]
     @created_at = data["created_at"]
     @updated_at = data["updated_at"]
-  
   end
 
   def self.build_data(contents)
-    @invoice_items = []
-    contents.each do |row|
-      @invoice_items << InvoiceItem.new(row)
-    end
+    @invoice_items = contents.collect { |row| InvoiceItem.new(row) }
   end
 
   def to_s
@@ -38,59 +34,59 @@ class InvoiceItem
   end
 
   def self.find_by_id(id)
-    @invoice_items.find{|invoice_item|invoice_item.id == id}
+    @invoice_items.find { |invoice_item|invoice_item.id == id }
   end
 
   def self.find_by_item_id(item_id)
-    @invoice_items.find{|invoice_item| invoice_item.item_id == item_id}
+    @invoice_items.find { |invoice_item| invoice_item.item_id == item_id }
   end
   
   def self.find_by_invoice_id(invoice_id)
-    @invoice_items.find{|invoice_item| invoice_item.invoice_id == invoice_id}
+    @invoice_items.find { |invoice_item| invoice_item.invoice_id == invoice_id }
   end
 
   def self.find_by_quantity(quantity)
-    @invoice_items.find{|invoice_item| invoice_item.quantity == quantity}
+    @invoice_items.find { |invoice_item| invoice_item.quantity == quantity }
   end
 
   def self.find_by_unit_price(unit_price)
-    @invoice_items.find{|invoice_item| invoice_item.unit_price == unit_price}
+    @invoice_items.find { |invoice_item| invoice_item.unit_price == unit_price }
   end
 
   def self.find_by_created_at(created_at)
-    @invoice_items.find{|invoice_item| invoice_item.created_at == created_at}
+    @invoice_items.find { |invoice_item| invoice_item.created_at == created_at }
   end
 
   def self.find_by_updated_at(updated_at)
-    @invoice_items.find{|invoice_item| invoice_item.updated_at == updated_at}
+    @invoice_items.find { |invoice_item| invoice_item.updated_at == updated_at }
   end
 
   def self.find_all_by_id(id)
-    @invoice_items.select{|invoice_item| invoice_item.id == id}
+    @invoice_items.select { |invoice_item| invoice_item.id == id }
   end  
 
   def self.find_all_by_item_id(item_id)
-    @invoice_items.select{|invoice_item| invoice_item.item_id == item_id}
+    @invoice_items.select { |invoice_item| invoice_item.item_id == item_id }
   end  
 
   def self.find_all_by_invoice_id(invoice_id)
-    @invoice_items.select{|invoice_item| invoice_item.invoice_id == invoice_id}
+    @invoice_items.select { |invoice_item| invoice_item.invoice_id == invoice_id }
   end  
 
   def self.find_all_by_quantity(quantity)
-    @invoice_items.select{|invoice_item| invoice_item.quantity == quantity}
+    @invoice_items.select { |invoice_item| invoice_item.quantity == quantity }
   end
 
   def self.find_all_by_unit_price(unit_price)
-    @invoice_items.select{|invoice_item| invoice_item.unit_price == unit_price}
+    @invoice_items.select { |invoice_item| invoice_item.unit_price == unit_price }
   end
 
   def self.find_all_by_created_at(created_at)
-    @invoice_items.select{|invoice_item| invoice_item.created_at == created_at}
+    @invoice_items.select { |invoice_item| invoice_item.created_at == created_at }
   end
 
   def self.find_all_by_updated_at(updated_at)
-    @invoice_items.select{|invoice_item| invoice_item.updated_at == updated_at}
+    @invoice_items.select { |invoice_item| invoice_item.updated_at == updated_at }
   end
   
   def invoice

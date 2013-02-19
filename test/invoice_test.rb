@@ -1,8 +1,11 @@
 require './test/test_helper'
 
 class InvoiceTest < MiniTest::Unit::TestCase
-  def test_it_is_initialized_from_an_array_of_data
+  def setup
     Parser.new
+  end
+
+  def test_it_is_initialized_from_an_array_of_data
     assert_equal "1", Invoice.invoices[0].id
     assert_equal "1", Invoice.invoices[0].customer_id
     assert_equal "26", Invoice.invoices[0].merchant_id
@@ -12,42 +15,34 @@ class InvoiceTest < MiniTest::Unit::TestCase
   end
 
   def test_it_can_return_a_random_value
-    Parser.new
     refute_equal Invoice.random.to_s, Invoice.random.to_s
   end
 
   def test_it_can_find_by_id
-    Parser.new
     assert_equal "1 1 26 shipped", Invoice.find_by_id("1").to_s
   end
 
   def test_it_can_find_by_customer_id
-    Parser.new
     assert_equal "1 1 26 shipped", Invoice.find_by_customer_id("1").to_s
   end
 
   def test_it_can_find_by_merchant_id
-    Parser.new
     assert_equal "1 1 26 shipped", Invoice.find_by_merchant_id("26").to_s
   end
 
   def test_it_can_find_by_status
-    Parser.new
     assert_equal "1 1 26 shipped", Invoice.find_by_status("shipped").to_s
   end
 
   def test_it_can_find_by_created_at
-    Parser.new
     assert_equal "1 1 26 shipped", Invoice.find_by_created_at("2012-03-25 09:54:09 UTC").to_s
   end
 
   def test_it_can_find_by_updated_at
-    Parser.new
     assert_equal "1 1 26 shipped", Invoice.find_by_updated_at("2012-03-25 09:54:09 UTC").to_s
   end
 
   def test_it_can_find_all_by_id
-    Parser.new
     invoices = Invoice.find_all_by_id("1")
     assert_equal 1, invoices.count
     invoices.each do |invoice|
@@ -56,7 +51,6 @@ class InvoiceTest < MiniTest::Unit::TestCase
   end
 
   def test_it_can_find_all_by_customer_id
-    Parser.new
     invoices = Invoice.find_all_by_customer_id("3")
     assert_equal 4, invoices.count
     invoices.each do |invoice|
@@ -65,19 +59,16 @@ class InvoiceTest < MiniTest::Unit::TestCase
   end
 
   def test_it_can_find_all_by_merchant_id
-    Parser.new
     invoices = Invoice.find_all_by_merchant_id("26")
     assert_equal 48, invoices.count
   end
 
   def test_it_can_find_all_by_status
-    Parser.new
     invoices = Invoice.find_all_by_status("shipped")
     assert_equal 4843, invoices.count
   end
 
   def test_it_can_find_all_by_created_at
-    Parser.new
     invoices = Invoice.find_all_by_created_at("2012-03-25 09:54:09 UTC")
     assert_equal 1, invoices.count
     invoices.each do |invoice|
@@ -86,7 +77,6 @@ class InvoiceTest < MiniTest::Unit::TestCase
   end
 
   def test_it_can_find_all_by_updated_at
-    Parser.new
     invoices = Invoice.find_all_by_updated_at("2012-03-25 09:54:09 UTC")
     assert_equal 1, invoices.count
     invoices.each do |invoice|
@@ -95,7 +85,6 @@ class InvoiceTest < MiniTest::Unit::TestCase
   end
 
   def test_it_can_find_all_transactions_for_an_invoice
-    Parser.new
     invoice = Invoice.find_by_id("12")
     assert_equal 3, invoice.transactions.count
     invoice.transactions.each do |transaction|
@@ -104,7 +93,6 @@ class InvoiceTest < MiniTest::Unit::TestCase
   end
 
   def test_it_can_find_all_invoices_items_associated_to_an_invoice
-    Parser.new
     invoice = Invoice.find_by_id("12")
     assert_equal 6, invoice.invoice_items.count
     invoice.invoice_items.each do |invoice_item|
@@ -113,13 +101,11 @@ class InvoiceTest < MiniTest::Unit::TestCase
   end
 
   def test_it_can_find_the_customer_associated_to_an_invoice
-    Parser.new
     invoice = Invoice.find_by_id("12")
     assert_equal "3 Mariah", invoice.customer.to_s
   end
 
   def test_it_can_find_items_associated_to_an_invoice
-    Parser.new
     invoice = Invoice.find_by_id("10")
     assert_equal 5, invoice.items.count
     invoice.items.each do |item|
@@ -128,13 +114,11 @@ class InvoiceTest < MiniTest::Unit::TestCase
   end
 
   def test_it_can_find_if_an_invoice_had_a_valid_transaction
-    Parser.new
     invoice = Invoice.find_by_id("12")
     assert_equal true, invoice.successful?
   end
 
   def test_it_can_get_revenue_per_invoice
-    Parser.new
     invoice = Invoice.find_by_id("2")
     assert_equal 5289.13, invoice.invoice_revenue
   end
