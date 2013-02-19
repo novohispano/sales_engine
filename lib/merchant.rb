@@ -69,4 +69,14 @@ class Merchant
   def invoices
     Invoice.find_all_by_merchant_id(id)
   end
+
+  def total
+    invoices.each do |invoice|
+      if invoice.successful?
+        invoice_items.reduce(0) do |total, invoice_item| 
+          total + invoice_item.subtotal
+        end
+      end
+    end
+  end
 end
