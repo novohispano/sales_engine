@@ -8,4 +8,5 @@ require "./lib/invoice_item"
 
 Parser.new
 
-puts Invoice.successful_transactions("12")
+invoice = Invoice.find_by_id("12")
+puts invoice.successful?

@@ -126,4 +126,10 @@ class InvoiceTest < MiniTest::Unit::TestCase
       assert_includes "2061:Item Ratione Dolor, 2055:Item Soluta Nihil, 2087:Item Cupiditate Architecto, 2089:Item Labore Molestias, 2059:Item Corrupti Earum", item.to_s
     end
   end
+
+  def test_it_can_find_if_an_invoice_had_a_valid_transaction
+    Parser.new
+    invoice = Invoice.find_by_id("12")
+    assert_equal true, invoice.successful?
+  end
 end

@@ -100,7 +100,7 @@ class Invoice
     Customer.find_by_id(customer_id)
   end
 
-  def self.successful_transactions(id)
+  def successful?
     Transaction.find_all_by_invoice_id(id).any? do |transaction| 
       transaction.result == "success"
     end
