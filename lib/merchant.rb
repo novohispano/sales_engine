@@ -15,12 +15,12 @@ class Merchant
     @merchants = contents.collect { |row| Merchant.new(row) }
   end
 
-  def to_s
-    "#{id}:#{name}"
-  end
-
   def self.merchants
     @merchants
+  end
+
+  def to_s
+    "#{id}:#{name}"
   end
 
   def self.random
@@ -74,6 +74,12 @@ class Merchant
   def revenue
     successful_invoices.reduce(0) do |revenue, invoice|
       revenue + invoice.invoice_revenue
+    end
+  end
+
+  def self.most_revenue
+    @merchants.collect do |merchant, revenue|
+      { merchant => merchant.revenue }
     end
   end
 end
