@@ -122,4 +122,9 @@ class InvoiceTest < MiniTest::Unit::TestCase
     invoice = Invoice.find_by_id("2")
     assert_equal 5289.13, invoice.invoice_revenue
   end
+
+  def test_it_can_get_total_quantity_of_items_per_invoice
+    invoice = Invoice.find_by_id("2")
+    assert_equal 21, invoice.invoice_quantity
+  end
 end

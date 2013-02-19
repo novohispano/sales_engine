@@ -103,6 +103,12 @@ class Invoice
     end
   end
 
+  def invoice_quantity
+    invoice_items.reduce(0) do |invoice_quantity, invoice_item|
+      invoice_quantity + invoice_item.quantity.to_i
+    end
+  end
+
   def successful?
     Transaction.find_all_by_invoice_id(id).any? do |transaction| 
       transaction.result == "success"

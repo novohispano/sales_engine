@@ -7,3 +7,7 @@ require "./lib/invoice"
 require "./lib/invoice_item"
 
 Parser.new
+
+invoice = Invoice.find_by_id("2")
+
+puts invoice.invoice_quantity
