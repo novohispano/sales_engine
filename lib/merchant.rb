@@ -70,11 +70,13 @@ class Merchant
     Invoice.find_all_by_merchant_id(id)
   end
 
+  def successful_invoices
+    invoices.select {|invoice| invoice.successful? == true}
+  end
+
   def revenue
-    invoices.collect do |invoice|
-      if invoice.successful?
-        invoice.invoice_revenue.reduce(:+)
-      end
+    successful_invoices.reduce(0) do |revenue, invoice|
+      revenue + invoice.invoice_revenue
     end
   end
 end

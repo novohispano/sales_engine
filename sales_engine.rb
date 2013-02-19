@@ -8,5 +8,5 @@ require "./lib/invoice_item"
 
 Parser.new
 
-invoice = Invoice.find_by_id("2")
-puts invoice.invoice_revenue
+merchant = Merchant.find_by_id("2")
+puts merchant.revenue
