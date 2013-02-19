@@ -71,6 +71,12 @@ class Merchant
     invoices.select { |invoice| invoice.successful? == true }
   end
 
+  def quantity
+    successful_invoices.reduce(0) do |quantity, invoice|
+      quantity + invoice.invoice_quantity
+    end
+  end
+
   def revenue
     successful_invoices.reduce(0) do |revenue, invoice|
       revenue + invoice.invoice_revenue

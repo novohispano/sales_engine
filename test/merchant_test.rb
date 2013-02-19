@@ -84,6 +84,11 @@ class MerchantTest < MiniTest::Unit::TestCase
     end
   end
 
+  def test_it_can_get_total_quantity
+    merchant = Merchant.find_by_id("2")
+    assert_equal 1011, merchant.quantity
+  end
+
   def test_it_can_get_total_revenue
     merchant = Merchant.find_by_id("2")
     assert_equal 436253.18999999994, merchant.revenue
