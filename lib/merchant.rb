@@ -77,9 +77,11 @@ class Merchant
     end
   end
 
-  def self.most_revenue
-    @merchants.collect do |merchant, revenue|
-      { merchant => merchant.revenue }
+  def self.most_revenue(number)
+    merchants_revenue = {}
+    @merchants.each do |merchant|
+      merchants_revenue[merchant] = merchant.revenue
     end
+    merchants_revenue.sort_by { |merchant, revenue| revenue }.reverse[0,number]
   end
 end
