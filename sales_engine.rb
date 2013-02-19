@@ -6,4 +6,6 @@ require "./lib/customer"
 require "./lib/invoice"
 require "./lib/invoice_item"
 
-# Parser.new
+Parser.new
+
+puts Invoice.successful_transactions("12")
