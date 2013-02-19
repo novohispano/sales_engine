@@ -15,6 +15,7 @@ class InvoiceItem
     @unit_price = data["unit_price"]
     @created_at = data["created_at"]
     @updated_at = data["updated_at"]
+  
   end
 
   def self.build_data(contents)
@@ -99,4 +100,9 @@ class InvoiceItem
   def item
     Item.find_by_id(item_id)
   end
+
+  def subtotal
+    invoice_item = InvoiceItem.find_by_id(id)
+    invoice_item.unit_price.to_i * invoice_item.quantity.to_i
+  end  
 end

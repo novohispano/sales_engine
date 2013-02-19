@@ -108,4 +108,10 @@ class InvoiceItemTest < MiniTest::Unit::TestCase
     invoice_item = InvoiceItem.find_by_id("3")
     assert_equal "523:Item Pariatur Quia", invoice_item.item.to_s
   end
+
+  def test_it_can_process_subtotal
+    Parser.new
+    invoice_item = InvoiceItem.find_by_id("1")
+    assert_equal 68175, invoice_item.subtotal
+  end
 end
