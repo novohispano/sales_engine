@@ -102,7 +102,6 @@ class InvoiceItem
   end
 
   def subtotal
-    invoice_item = InvoiceItem.find_by_id(id)
-    invoice_item.unit_price.to_i * invoice_item.quantity.to_i
-  end  
+    quantity.to_i * unit_price.to_i / 100.00
+  end
 end

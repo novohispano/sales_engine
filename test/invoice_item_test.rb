@@ -112,6 +112,6 @@ class InvoiceItemTest < MiniTest::Unit::TestCase
   def test_it_can_process_subtotal
     Parser.new
     invoice_item = InvoiceItem.find_by_id("1")
-    assert_equal 68175, invoice_item.subtotal
+    assert_equal 681.75, invoice_item.subtotal
   end
 end

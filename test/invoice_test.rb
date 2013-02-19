@@ -132,4 +132,10 @@ class InvoiceTest < MiniTest::Unit::TestCase
     invoice = Invoice.find_by_id("12")
     assert_equal true, invoice.successful?
   end
+
+  def test_it_can_get_revenue_per_invoice
+    Parser.new
+    invoice = Invoice.find_by_id("2")
+    assert_equal 5289.13, invoice.invoice_revenue
+  end
 end
