@@ -83,4 +83,19 @@ class MerchantTest < MiniTest::Unit::TestCase
     merchant = Merchant.find_by_id("3")
     assert_equal 43, merchant.invoices.count
   end
+
+  def test_it_can_return_successful_invoices
+    Parser.new
+    merchant = Merchant.find_by_id("2")
+    assert_equal 47, merchant.successful_invoices.count
+    merchant.successful_invoices.each do |invoice|
+      assert_equal true, invoice.successful?
+    end
+  end
+
+  def test_it_can_get_total_revenue
+    Parser.new
+    merchant = Merchant.find_by_id("2")
+    assert_equal 436253.18999999994, merchant.revenue
+  end
 end
