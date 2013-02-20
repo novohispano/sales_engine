@@ -85,6 +85,14 @@ class CustomerTest < MiniTest::Unit::TestCase
     end
   end
 
+  def test_it_can_find_all_successful_invoices_for_customer
+    customer = Customer.find_by_id("3")
+    assert_equal 3, customer.successful_invoices.count
+    customer.successful_invoices.each do |invoice|
+      assert_includes "10 3 86 shipped, 11 3 62 shipped, 12 3 8 shipped", invoice.to_s
+    end
+  end
+
   def test_it_can_find_all_the_transactions_per_customer
     customer = Customer.find_by_id("25")
     assert_equal 6, customer.transactions.count
