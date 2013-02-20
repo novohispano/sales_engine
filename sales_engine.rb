@@ -1,3 +1,4 @@
+require "bigdecimal"
 require "./lib/parser"
 require "./lib/merchant"
 require "./lib/item"
@@ -6,9 +7,15 @@ require "./lib/customer"
 require "./lib/invoice"
 require "./lib/invoice_item"
 
-Parser.new
+class SalesEngine
+  def self.startup
+    Parser.new
+  end
+end
 
-merchant = Merchant.find_by_id("26") 
+SalesEngine.startup
 
-puts merchant.revenue("2012-03-25 09:54:09 UTC")
+merchant = Merchant.find_by_id("26")
+
 puts merchant.revenue
+puts merchant.revenue("2012-03-25 09:54:09 UTC")

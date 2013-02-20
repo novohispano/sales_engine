@@ -89,6 +89,38 @@ class Item
     @items.find_all { |item| item.updated_at == updated_at }
   end
 
+  def self.most_revenue(number)
+    @items.sort_by { |item| item.revenue }.reverse.take(number)
+  end
+
+  def self.most_items(number)
+    @items.sort_by { |item| item.quantity }.reverse.take(number)
+  end
+
+  def quantity
+    successful_invoice_items.collect do |invoice_item|
+      invoice_item.quantity.to_i
+    end.reduce(:+) || 0
+  end
+
+  def revenue
+    successful_invoice_items.collect do |invoice_item| 
+      invoice_item.subtotal
+    end.reduce(:+) || 0
+  end
+
+  def successful_invoice_items
+    invoice_items.select { |invoice_item| invoice_item.successful? }
+  end
+
+  def sucessful_invoices
+    invoices.select { |invoice| invoice.successful? }
+  end
+
+  def invoices
+    invoice_items.collect { |item| item.invoice }
+  end
+
   def invoice_items
     InvoiceItem.find_all_by_item_id(id)
   end

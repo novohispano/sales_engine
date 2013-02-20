@@ -69,7 +69,25 @@ class Customer
     @customers.select { |customer| customer.updated_at == updated_at }
   end
 
+  def favorite_merchant
+    merchants.group_by do |merchant| 
+      merchant
+    end.max_by { |merchant, merchant_group| merchant_group.size }.first
+  end
+
+  def merchants
+    successful_invoices.collect { |invoice| invoice.merchant }
+  end
+
+  def successful_invoices
+    invoices.select { |invoice| invoice.successful? == true }
+  end
+
   def invoices
     Invoice.find_all_by_customer_id(id)
+  end
+
+  def transactions
+    invoices.collect { |invoice| invoice.transactions }
   end
 end

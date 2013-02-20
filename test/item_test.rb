@@ -108,4 +108,19 @@ class ItemTest < MiniTest::Unit::TestCase
     item = Item.find_by_id("2")
     assert_equal "1:Schroeder-Jerde", item.merchant.to_s
   end
+
+  def test_it_can_get_revenue_for_item
+    item = Item.find_by_id("227")
+    assert_equal "0.114839374E7", item.revenue.to_s
+  end
+
+  def test_it_can_get_items_sorted_by_most_revenue
+    assert_equal 10, Item.most_revenue(10).count
+    assert_equal "[227:Item Dicta Autem]", Item.most_revenue(1).to_s
+  end
+
+  def test_it_can_get_items_sorted_by_quantity
+    assert_equal 20, Item.most_items(20).count
+    assert_equal "[227:Item Dicta Autem]", Item.most_revenue(1).to_s
+  end 
 end

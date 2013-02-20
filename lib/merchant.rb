@@ -67,12 +67,16 @@ class Merchant
     Invoice.find_all_by_merchant_id(id)
   end
 
-  def invoices_by_date(date = "")
+  def invoices_by_date(date)
     invoices.select { |invoice| invoice.created_at == date}
   end
 
   def successful_invoices
     invoices.select { |invoice| invoice.successful? == true }
+  end
+
+  def successful_invoices_for_date(date)
+    successful_invoices.select { |invoice| invoice.created_at == date}
   end
 
   def quantity
@@ -81,15 +85,17 @@ class Merchant
     end
   end
 
-  def revenue(date = "")
-    if date == ""
-      successful_invoices.reduce(0) do |revenue, invoice|
-        revenue + invoice.invoice_revenue
-      end
+  def sum_invoices(invoices)
+    invoices.reduce(0) do |revenue, invoice|
+      revenue + invoice.invoice_revenue
+    end
+  end
+
+  def revenue(date = nil)
+    if date
+      sum_invoices(successful_invoices_for_date(date))
     else
-      invoices_by_date(date) && successful_invoices.reduce(0) do |revenue, invoice|
-        revenue + invoice.invoice_revenue
-      end
+      sum_invoices(successful_invoices)
     end
   end
 
@@ -106,18 +112,10 @@ class Merchant
   end
 
   def self.most_items(number)
-    merchants_quantity = {}
-    @merchants.each do |merchant|
-      merchants_quantity[merchant] = merchant.quantity
-    end
-    merchants_quantity.sort_by { |merchant, quantity| quantity }.reverse[0,number]
+    @merchants.sort_by { |merchant| merchant.quantity }.reverse.take(number)
   end
 
   def self.most_revenue(number)
-    merchants_revenue = {}
-    @merchants.each do |merchant|
-      merchants_revenue[merchant] = merchant.revenue
-    end
-    merchants_revenue.sort_by { |merchant, revenue| revenue }.reverse[0,number]
+    @merchants.sort_by { |merchant| merchant.revenue }.reverse.take(number)
   end
 end
