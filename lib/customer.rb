@@ -72,4 +72,8 @@ class Customer
   def invoices
     Invoice.find_all_by_customer_id(id)
   end
+
+  def transactions
+    invoices.collect { |invoice| invoice.transactions }
+  end
 end

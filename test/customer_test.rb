@@ -84,4 +84,12 @@ class CustomerTest < MiniTest::Unit::TestCase
       assert_includes "10 3 86 shipped, 11 3 62 shipped, 12 3 8 shipped, 13 3 34 shipped", invoice.to_s
     end
   end
+
+  def test_it_can_find_all_the_transactions_per_customer
+    customer = Customer.find_by_id("25")
+    assert_equal 6, customer.transactions.count
+    customer.transactions.each do |transaction|
+      assert_includes "[[146: 132: success], [147: 133: success], [148: 134: success], [149: 135: success], [150: 136: success], [151: 137: success]]", transaction.to_s
+    end
+  end
 end
