@@ -67,7 +67,7 @@ class Merchant
     Invoice.find_all_by_merchant_id(id)
   end
 
-  def invoices_by_date(date)
+  def invoices_by_date(date = "")
     invoices.select { |invoice| invoice.created_at == date}
   end
 
@@ -81,9 +81,15 @@ class Merchant
     end
   end
 
-  def revenue
-    successful_invoices.reduce(0) do |revenue, invoice|
-      revenue + invoice.invoice_revenue
+  def revenue(date = "")
+    if date == ""
+      successful_invoices.reduce(0) do |revenue, invoice|
+        revenue + invoice.invoice_revenue
+      end
+    else
+      invoices_by_date(date) && successful_invoices.reduce(0) do |revenue, invoice|
+        revenue + invoice.invoice_revenue
+      end
     end
   end
 
