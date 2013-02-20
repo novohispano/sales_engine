@@ -93,6 +93,16 @@ class Item
     @items.sort_by { |item| item.revenue }.reverse.take(number)
   end
 
+  def self.most_items(number)
+    @items.sort_by { |item| item.quantity }.reverse.take(number)
+  end
+
+  def quantity
+    successful_invoice_items.collect do |invoice_item|
+      invoice_item.quantity.to_i
+    end.reduce(:+) || 0
+  end
+
   def revenue
     successful_invoice_items.collect do |invoice_item| 
       invoice_item.subtotal
