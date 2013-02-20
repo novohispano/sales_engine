@@ -67,6 +67,10 @@ class Merchant
     Invoice.find_all_by_merchant_id(id)
   end
 
+  def invoices_by_date(date)
+    invoices.select { |invoice| invoice.created_at == date}
+  end
+
   def successful_invoices
     invoices.select { |invoice| invoice.successful? == true }
   end
@@ -90,9 +94,9 @@ class Merchant
   end
 
   def favorite_customer
-    customers.group_by do |customer| 
-      customer
-    end.max_by {|customer, customer_count| customer_count.size }.first
+    customers.group_by { |customer| customer }.max_by do |customer, count| 
+      count.size
+    end.first
   end
 
   def self.most_items(number)
