@@ -113,4 +113,9 @@ class ItemTest < MiniTest::Unit::TestCase
     item = Item.find_by_id("227")
     assert_equal "0.114839374E9", item.revenue.to_s
   end
+
+  def test_it_can_get_items_most_revenue
+    assert_equal 10, Item.most_revenue(10).count
+    assert_equal "[227:Item Dicta Autem]", Item.most_revenue(1).to_s
+  end
 end
