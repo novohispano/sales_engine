@@ -8,7 +8,7 @@ require "./lib/invoice_item"
 
 Parser.new
 
-customer = Customer.find_by_id("3")
+customer = Customer.find_by_id("13")
 
 puts customer.invoices
 puts ""

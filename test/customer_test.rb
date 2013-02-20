@@ -93,6 +93,19 @@ class CustomerTest < MiniTest::Unit::TestCase
     end
   end
 
+  def test_it_can_get_all_the_merchants_for_customer
+    customer = Customer.find_by_id("3")
+    assert_equal 3, customer.merchants.count
+    customer.merchants.each do |merchant|
+      assert_includes "86:Marvin Group, 62:Kunze, Kautzer and Little, 8:Osinski, Pollich and Koelpin", merchant.to_s
+    end
+  end
+
+  def test_it_can_get_favorite_merchant_for_customer
+    customer = Customer.find_by_id("13")
+    assert_equal "76:Kirlin, Jakubowski and Smitham", customer.favorite_merchant.to_s
+  end
+
   def test_it_can_find_all_the_transactions_per_customer
     customer = Customer.find_by_id("25")
     assert_equal 6, customer.transactions.count
