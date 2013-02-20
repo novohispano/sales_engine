@@ -106,6 +106,6 @@ class InvoiceItem
   end
 
   def subtotal
-    BigDecimal.new(quantity) * BigDecimal.new(unit_price)
+    BigDecimal.new((quantity.to_i * unit_price.to_i)/ 100.0, 12)
   end
 end

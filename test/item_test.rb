@@ -111,7 +111,7 @@ class ItemTest < MiniTest::Unit::TestCase
 
   def test_it_can_get_revenue_for_item
     item = Item.find_by_id("227")
-    assert_equal "0.114839374E9", item.revenue.to_s
+    assert_equal "0.114839374E7", item.revenue.to_s
   end
 
   def test_it_can_get_items_sorted_by_most_revenue

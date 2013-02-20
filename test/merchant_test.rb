@@ -91,7 +91,7 @@ class MerchantTest < MiniTest::Unit::TestCase
 
   def test_it_can_get_total_revenue
     merchant = Merchant.find_by_id("2")
-    assert_equal 436253.18999999994, merchant.revenue
+    assert_equal 436253.19, merchant.revenue
   end
 
   def test_it_can_find_all_customers
@@ -105,12 +105,14 @@ class MerchantTest < MiniTest::Unit::TestCase
   end
 
   def test_it_can_get_merchants_by_total_quantity
-    assert_equal 10, Merchant.most_items(10).count
-    assert_equal "[[89:Kassulke, O'Hara and Quitzon, 1653]]", Merchant.most_items(1).to_s
+    top_merchants = Merchant.most_items(10)
+    assert_equal 10, top_merchants.count
+    assert_equal "Kassulke, O'Hara and Quitzon", top_merchants.first.name
   end
 
   def test_it_can_get_merchants_by_most_revenue
-    assert_equal 10, Merchant.most_revenue(10).count
-    assert_equal "[[14:Dicki-Bednar, 1148393.7399999998]]", Merchant.most_revenue(1).to_s
+    top_merchants = Merchant.most_revenue(10)
+    assert_equal 10, top_merchants.count 
+    assert_equal "Dicki-Bednar", top_merchants.first.name
   end
 end

@@ -96,18 +96,10 @@ class Merchant
   end
 
   def self.most_items(number)
-    merchants_quantity = {}
-    @merchants.each do |merchant|
-      merchants_quantity[merchant] = merchant.quantity
-    end
-    merchants_quantity.sort_by { |merchant, quantity| quantity }.reverse[0,number]
+    @merchants.sort_by { |merchant| merchant.quantity }.reverse.take(number)
   end
 
   def self.most_revenue(number)
-    merchants_revenue = {}
-    @merchants.each do |merchant|
-      merchants_revenue[merchant] = merchant.revenue
-    end
-    merchants_revenue.sort_by { |merchant, revenue| revenue }.reverse[0,number]
+    @merchants.sort_by { |merchant| merchant.revenue }.reverse.take(number)
   end
 end
