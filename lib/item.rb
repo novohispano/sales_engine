@@ -89,6 +89,10 @@ class Item
     @items.find_all { |item| item.updated_at == updated_at }
   end
 
+  def invoices
+    invoice_items.collect { |item| item.invoice }
+  end
+
   def invoice_items
     InvoiceItem.find_all_by_item_id(id)
   end
