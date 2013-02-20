@@ -97,6 +97,10 @@ class Invoice
     Customer.find_by_id(customer_id)
   end
 
+  def merchant
+    Merchant.find_by_id(merchant_id)
+  end
+
   def invoice_revenue
     invoice_items.reduce(0) do |invoice_revenue, invoice_item|
       invoice_revenue + invoice_item.subtotal

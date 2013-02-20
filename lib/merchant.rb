@@ -92,7 +92,7 @@ class Merchant
   def favorite_customer
     customers.group_by do |customer| 
       customer
-    end.max_by {|customer, customer_count| customer_count.size }.first
+    end.max_by {|customer, customer_group| customer_group.size }.first
   end
 
   def self.most_items(number)

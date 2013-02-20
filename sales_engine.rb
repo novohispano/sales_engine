@@ -8,10 +8,16 @@ require "./lib/invoice_item"
 
 Parser.new
 
-customer = Customer.find_by_id("25")
+customer = Customer.find_by_id("13")
 
 puts customer.invoices
 puts ""
-puts customer.transactions
+puts customer.invoices.count
 puts ""
-puts customer.transactions.count
+puts customer.successful_invoices
+puts ""
+puts customer.successful_invoices.count
+puts ""
+puts customer.merchants
+puts ""
+puts customer.favorite_merchant
