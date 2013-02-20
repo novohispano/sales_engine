@@ -108,4 +108,9 @@ class ItemTest < MiniTest::Unit::TestCase
     item = Item.find_by_id("2")
     assert_equal "1:Schroeder-Jerde", item.merchant.to_s
   end
+
+  def test_it_can_get_revenue_for_item
+    item = Item.find_by_id("227")
+    assert_equal "0.114839374E9", item.revenue.to_s
+  end
 end
