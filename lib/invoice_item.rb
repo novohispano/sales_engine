@@ -89,6 +89,14 @@ class InvoiceItem
     @invoice_items.select { |invoice_item| invoice_item.updated_at == updated_at }
   end
   
+  def successful?
+    invoice.successful?
+  end
+
+  def invoices
+    Invoice.find_all_by_id(invoice_id)
+  end
+
   def invoice
     Invoice.find_by_id(invoice_id)
   end
@@ -98,6 +106,6 @@ class InvoiceItem
   end
 
   def subtotal
-    quantity.to_i * unit_price.to_i / 100.00
+    BigDecimal.new(quantity) * BigDecimal.new(unit_price)
   end
 end
