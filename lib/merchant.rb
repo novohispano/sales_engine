@@ -83,6 +83,18 @@ class Merchant
     end
   end
 
+  def customers
+    successful_invoices.collect do |invoice|
+      invoice.customer
+    end
+  end
+
+  def favorite_customer
+    customers.group_by do |customer| 
+      customer
+    end.max_by {|customer, customer_count| customer_count.size }.first
+  end
+
   def self.most_items(number)
     merchants_quantity = {}
     @merchants.each do |merchant|
