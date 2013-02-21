@@ -11,8 +11,8 @@ class InvoiceItemTest < MiniTest::Unit::TestCase
     assert_equal "1", InvoiceItem.invoice_items[0].invoice_id
     assert_equal "5", InvoiceItem.invoice_items[0].quantity
     assert_equal "13635", InvoiceItem.invoice_items[0].unit_price
-    assert_equal "2012-03-27 14:54:09 UTC", InvoiceItem.invoice_items[0].created_at
-    assert_equal "2012-03-27 14:54:09 UTC", InvoiceItem.invoice_items[0].updated_at
+    assert_equal Date.parse("2012-03-27 14:54:09 UTC"), InvoiceItem.invoice_items[0].created_at
+    assert_equal Date.parse("2012-03-27 14:54:09 UTC"), InvoiceItem.invoice_items[0].updated_at
   end
 
   def test_it_can_return_a_random_value
@@ -40,11 +40,11 @@ class InvoiceItemTest < MiniTest::Unit::TestCase
   end
 
   def test_it_can_find_invoice_item_by_created_at
-    assert_equal "205 2089 46", InvoiceItem.find_by_created_at("2012-03-27 14:54:12 UTC").to_s
+    assert_equal "1 539 1", InvoiceItem.find_by_created_at(Date.parse("2012-03-27 14:54:12 UTC")).to_s
   end
 
   def test_it_can_find_invoice_item_by_updated_at
-    assert_equal "113 1927 22", InvoiceItem.find_by_updated_at("2012-03-27 14:54:11 UTC").to_s
+    assert_equal "1 539 1", InvoiceItem.find_by_updated_at(Date.parse("2012-03-27 14:54:11 UTC")).to_s
   end
 
   def test_it_can_find_all_invoice_items_by_id
@@ -76,13 +76,15 @@ class InvoiceItemTest < MiniTest::Unit::TestCase
   end
 
   def test_it_can_find_all_invoice_items_by_created_at
-    invoice_items = InvoiceItem.find_all_by_created_at("2012-03-27 14:54:09 UTC")
-    assert_equal 15, invoice_items.count
+    created_at = Date.parse("2012-03-27 14:54:09 UTC")
+    invoice_items = InvoiceItem.find_all_by_created_at(created_at)
+    assert_equal 21687, invoice_items.count
   end
 
   def test_it_can_find_all_invoice_items_by_updated_at
-    invoice_items = InvoiceItem.find_all_by_updated_at("2012-03-27 14:54:10 UTC")
-    assert_equal 97, invoice_items.count
+    updated_at = Date.parse("2012-03-27 14:54:10 UTC")
+    invoice_items = InvoiceItem.find_all_by_updated_at(updated_at)
+    assert_equal 21687, invoice_items.count
   end
 
   def test_it_can_find_invoice_for_a_invoice_item
