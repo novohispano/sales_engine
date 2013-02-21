@@ -10,8 +10,8 @@ class InvoiceTest < MiniTest::Unit::TestCase
     assert_equal "1", Invoice.invoices[0].customer_id
     assert_equal "26", Invoice.invoices[0].merchant_id
     assert_equal "shipped", Invoice.invoices[0].status
-    assert_equal "2012-03-25 09:54:09 UTC", Invoice.invoices[0].created_at
-    assert_equal "2012-03-25 09:54:09 UTC", Invoice.invoices[0].updated_at
+    assert_equal Date.parse("2012-03-25 09:54:09 UTC"), Invoice.invoices[0].created_at
+    assert_equal Date.parse("2012-03-25 09:54:09 UTC"), Invoice.invoices[0].updated_at
   end
 
   def test_it_can_return_a_random_value
@@ -35,11 +35,11 @@ class InvoiceTest < MiniTest::Unit::TestCase
   end
 
   def test_it_can_find_by_created_at
-    assert_equal "1 1 26 shipped", Invoice.find_by_created_at("2012-03-25 09:54:09 UTC").to_s
+    assert_equal "1 1 26 shipped", Invoice.find_by_created_at(Date.parse("2012-03-25 09:54:09 UTC")).to_s
   end
 
   def test_it_can_find_by_updated_at
-    assert_equal "1 1 26 shipped", Invoice.find_by_updated_at("2012-03-25 09:54:09 UTC").to_s
+    assert_equal "1 1 26 shipped", Invoice.find_by_updated_at(Date.parse("2012-03-25 09:54:09 UTC")).to_s
   end
 
   def test_it_can_find_all_by_id
@@ -69,19 +69,15 @@ class InvoiceTest < MiniTest::Unit::TestCase
   end
 
   def test_it_can_find_all_by_created_at
-    invoices = Invoice.find_all_by_created_at("2012-03-25 09:54:09 UTC")
-    assert_equal 1, invoices.count
-    invoices.each do |invoice|
-      assert_includes "1 1 26 shipped", invoice.to_s
-    end
+    created_at = Date.parse("2012-03-25 09:54:09 UTC")
+    invoices = Invoice.find_all_by_created_at(created_at)
+    assert_equal 247, invoices.count
   end
 
   def test_it_can_find_all_by_updated_at
-    invoices = Invoice.find_all_by_updated_at("2012-03-25 09:54:09 UTC")
-    assert_equal 1, invoices.count
-    invoices.each do |invoice|
-      assert_includes "1 1 26 shipped", invoice.to_s
-    end
+    updated_at = Date.parse("2012-03-25 09:54:09 UTC")
+    invoices = Invoice.find_all_by_updated_at(updated_at)
+    assert_equal 247, invoices.count
   end
 
   def test_it_can_find_all_transactions_for_an_invoice
