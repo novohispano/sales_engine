@@ -6,7 +6,7 @@ module SalesEngine
                 :updated_at
 
     def initialize(data)
-      @id = data["id"]
+      @id = data["id"].to_i
       @name = data["name"]
       @created_at = Date.parse(data["created_at"])
       @updated_at = Date.parse(data["updated_at"])
@@ -94,7 +94,7 @@ module SalesEngine
 
     def revenue(date = nil)
       if date
-        date = Date.parse(date)
+        date = Date.parse(date.to_s)
         sum_invoices(successful_invoices_for_date(date))
       else
         sum_invoices(successful_invoices)

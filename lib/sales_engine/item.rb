@@ -9,11 +9,11 @@ module SalesEngine
                 :updated_at
 
     def initialize(data)
-      @id = data["id"]
+      @id = data["id"].to_i
       @name = data["name"]
       @description = data["description"]
-      @unit_price = data["unit_price"]
-      @merchant_id = data["merchant_id"]
+      @unit_price = BigDecimal.new((data["unit_price"]).to_i / 100.0, 12)
+      @merchant_id = data["merchant_id"].to_i
       @created_at = Date.parse(data["created_at"])
       @updated_at = Date.parse(data["updated_at"])
     end

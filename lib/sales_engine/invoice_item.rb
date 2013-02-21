@@ -9,11 +9,11 @@ module SalesEngine
                 :updated_at
     
     def initialize(data)
-      @id = data["id"]
-      @item_id = data["item_id"]
-      @invoice_id = data ["invoice_id"]
-      @quantity = data["quantity"]
-      @unit_price = data["unit_price"]
+      @id = data["id"].to_i
+      @item_id = data["item_id"].to_i
+      @invoice_id = data ["invoice_id"].to_i
+      @quantity = data["quantity"].to_i
+      @unit_price = data["unit_price"].to_i
       @created_at = Date.parse(data["created_at"])
       @updated_at = Date.parse(data["updated_at"])
     end
@@ -107,7 +107,7 @@ module SalesEngine
     end
 
     def subtotal
-      BigDecimal.new((quantity.to_i * unit_price.to_i)/ 100.0, 12)
+      BigDecimal.new((quantity * unit_price)/ 100.0, 12)
     end
   end
 end
