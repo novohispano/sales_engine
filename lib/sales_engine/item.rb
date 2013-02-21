@@ -129,5 +129,11 @@ module SalesEngine
     def merchant
       Merchant.find_by_id(merchant_id)
     end
+
+    def best_day
+      by_date = successful_invoice_items.group_by{|ii| ii.invoice.created_at }
+      sorted = by_date.sort_by{|date, invoice_items| invoice_items.collect{|ii| ii.subtotal}.inject(:+)}
+      sorted.last.first
+    end
   end
 end
