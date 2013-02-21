@@ -74,6 +74,10 @@ module SalesEngine
       @transactions.find_all { |transaction| transaction.updated_at == updated_at }
     end
 
+    def self.find_by_credit_card_number(number)
+      @transactions.find { |transaction| transaction.credit_card_number == number }
+    end
+
     def invoice
       Invoice.find_by_id(invoice_id)
     end

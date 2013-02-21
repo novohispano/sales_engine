@@ -119,5 +119,48 @@ module SalesEngine
         transaction.result == "success"
       end
     end
+
+    def self.generate_id
+      invoices.last.id + 1
+    end
+
+    def self.create(input)
+      invoice = self.new({
+        "customer_id" => input[:customer].id,
+        "merchant_id" => input[:merchant].id,
+        "status"      => input[:status],
+        "id"          => generate_id,
+        "created_at" => Time.now.to_s,
+        "updated_at" => Time.now.to_s
+      })
+
+      input[:items].each do |item|
+        invoice_item = InvoiceItem.new({
+          "item_id"    => item.id,
+          "invoice_id" => invoice.id,
+          "quantity"   => 1,
+          "unit_price" => item.unit_price,
+          "created_at" => Time.now.to_s,
+          "updated_at" => Time.now.to_s
+          })
+        InvoiceItem.invoice_items << invoice_item
+      end
+
+      return invoice
+    end
+
+    def charge(input)
+      transaction = Transaction.new({
+        "id" => Transaction.transactions.last.id + 1,
+        "invoice_id" => self.id,
+        "credit_card_number" => input[:credit_card_number],
+        "credit_card_expiration_date" => input[:credit_card_expiration],
+        "result" => input[:result],
+        "created_at" => Time.now.to_s,
+        "updated_at" => Time.now.to_s
+      })
+
+      Transaction.transactions << transaction
+    end
   end
 end

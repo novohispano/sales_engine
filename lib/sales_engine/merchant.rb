@@ -73,7 +73,11 @@ module SalesEngine
     end
 
     def successful_invoices
-      invoices.select { |invoice| invoice.successful? == true }
+      invoices.select { |invoice| invoice.successful? }
+    end
+
+    def pending_invoices
+      invoices - successful_invoices      
     end
 
     def successful_invoices_for_date(date)
@@ -119,6 +123,16 @@ module SalesEngine
 
     def self.most_revenue(number)
       @merchants.sort_by { |merchant| merchant.revenue }.reverse.take(number)
+    end
+
+    def self.revenue(date)
+      merchants.collect do |merchant|
+        merchant.revenue(date)
+      end.reduce(:+)
+    end
+
+    def customers_with_pending_invoices
+      pending_invoices.collect{|invoice| invoice.customer}
     end
   end
 end
