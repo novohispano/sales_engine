@@ -9,8 +9,8 @@ class CustomerTest < MiniTest::Unit::TestCase
     assert_equal "11", Customer.customers[10].id
     assert_equal "Logan", Customer.customers[10].first_name
     assert_equal "Kris", Customer.customers[10].last_name
-    assert_equal "2012-03-27 14:54:12 UTC", Customer.customers[10].created_at
-    assert_equal "2012-03-27 14:54:12 UTC", Customer.customers[10].updated_at
+    assert_equal Date.parse("2012-03-27 14:54:12 UTC"), Customer.customers[10].created_at
+    assert_equal Date.parse("2012-03-27 14:54:12 UTC"), Customer.customers[10].updated_at
   end
 
   def test_it_can_return_a_random_value
@@ -30,11 +30,11 @@ class CustomerTest < MiniTest::Unit::TestCase
   end
 
   def test_it_can_find_a_customer_by_created_at
-    assert_equal "11 Logan", Customer.find_by_created_at("2012-03-27 14:54:12 UTC").to_s
+    assert_equal "1 Joey", Customer.find_by_created_at(Date.parse("2012-03-27 14:54:12 UTC")).to_s
   end
 
   def test_it_can_find_a_customer_by_updated_at
-    assert_includes "2 Cecelia", Customer.find_by_updated_at("2012-03-27 14:54:10 UTC").to_s
+    assert_equal "1 Joey", Customer.find_by_updated_at(Date.parse("2012-03-27 14:54:10 UTC")).to_s
   end
 
   def test_it_can_find_all_customers_by_id
@@ -62,19 +62,15 @@ class CustomerTest < MiniTest::Unit::TestCase
   end
 
   def test_it_can_find_all_customers_by_created_at
-    customers = Customer.find_all_by_created_at("2012-03-27 14:54:10 UTC")
-    assert_equal 6, customers.count
-    customers.each do |customer|
-      assert_includes "2 Cecelia, 3 Mariah, 4 Leanne, 5 Sylvester, 6 Heber, 7 Parker", customer.to_s
-    end
+    created_at = Date.parse("2012-03-27 14:54:10 UTC")
+    customers = Customer.find_all_by_created_at(created_at)
+    assert_equal 1000, customers.count
   end
 
   def test_it_can_find_all_customers_by_updated_at
-    customers = Customer.find_all_by_updated_at("2012-03-27 14:54:10 UTC")
-    assert_equal 6, customers.count
-    customers.each do |customer|
-      assert_includes "2 Cecelia, 3 Mariah, 4 Leanne, 5 Sylvester, 6 Heber, 7 Parker", customer.to_s
-    end
+    updated_at = Date.parse("2012-03-27 14:54:10 UTC")
+    customers = Customer.find_all_by_updated_at(updated_at)
+    assert_equal 1000, customers.count
   end
 
   def test_it_can_find_all_invoices_associated_with_a_customer
