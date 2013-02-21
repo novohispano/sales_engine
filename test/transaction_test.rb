@@ -65,13 +65,13 @@ class TransactionTest < MiniTest::Unit::TestCase
   def test_it_can_find_all_transactions_by_created_at
     created_at = Date.parse("2012-03-27 14:54:09 UTC")
     transactions = Transaction.find_all_by_created_at(created_at)
-    assert_equal 2, transactions.count
+    assert_equal 5595, transactions.count
   end
 
   def test_it_can_find_all_transactions_by_updated_at
     updated_at = Date.parse("2012-03-27 14:54:09 UTC")
     transactions = Transaction.find_all_by_updated_at(updated_at)
-    assert_equal 2, transactions.count
+    assert_equal 5595, transactions.count
   end
 
   def test_it_can_find_an_invoice_associated_with_a_transaction
