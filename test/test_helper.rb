@@ -4,4 +4,4 @@ SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/emoji'
 
-require './sales_engine'
+require './lib/sales_engine'
