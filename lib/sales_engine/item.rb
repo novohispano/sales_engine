@@ -105,7 +105,7 @@ module SalesEngine
     end
 
     def revenue
-      successful_invoice_items.collect do |invoice_item| 
+      successful_invoice_items.collect do |invoice_item|
         invoice_item.subtotal
       end.reduce(:+) || 0
     end
@@ -132,7 +132,9 @@ module SalesEngine
 
     def best_day
       by_date = successful_invoice_items.group_by{|ii| ii.invoice.created_at }
-      sorted = by_date.sort_by{|date, invoice_items| invoice_items.collect{|ii| ii.subtotal}.inject(:+)}
+      sorted = by_date.sort_by do |date, invoice_items|
+        invoice_items.collect{|ii| ii.subtotal}.inject(:+)
+      end
       sorted.last.first
     end
   end
