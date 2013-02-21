@@ -7,7 +7,7 @@ module SalesEngine
     end
 
     def test_it_is_initialized_from_an_array_of_data
-      assert_equal "1", Merchant.merchants[0].id
+      assert_equal 1, Merchant.merchants[0].id
       assert_equal "Schroeder-Jerde", Merchant.merchants[0].name
       assert_equal Date.parse("2012-03-27 14:53:59 UTC"), Merchant.merchants[0].created_at
       assert_equal Date.parse("2012-03-27 16:12:25 UTC"), Merchant.merchants[5].updated_at
@@ -20,7 +20,7 @@ module SalesEngine
     end
 
     def test_it_can_find_a_merchant_by_id
-      assert_equal "5:Williamson Group", Merchant.find_by_id("5").to_s
+      assert_equal "5:Williamson Group", Merchant.find_by_id(5).to_s
     end
 
     def test_it_can_find_a_merchant_by_name
@@ -36,7 +36,7 @@ module SalesEngine
     end
 
     def test_it_can_find_all_merchants_by_id
-      merchants = Merchant.find_all_by_id("5")
+      merchants = Merchant.find_all_by_id(5)
       assert_equal 1, merchants.count
       merchants.each do |merchant|
         assert_includes "5:Williamson Group", merchant.to_s
@@ -64,17 +64,17 @@ module SalesEngine
     end
 
     def test_it_can_find_all_items_for_a_merchant
-      merchant = Merchant.find_by_id("2")
+      merchant = Merchant.find_by_id(2)
       assert_equal 38, merchant.items.count
     end
 
     def test_it_can_find_all_invoices_for_a_merchant
-      merchant = Merchant.find_by_id("3")
+      merchant = Merchant.find_by_id(3)
       assert_equal 43, merchant.invoices.count
     end
 
     def test_it_can_return_successful_invoices
-      merchant = Merchant.find_by_id("2")
+      merchant = Merchant.find_by_id(2)
       assert_equal 47, merchant.successful_invoices.count
       merchant.successful_invoices.each do |invoice|
         assert_equal true, invoice.successful?
@@ -82,27 +82,27 @@ module SalesEngine
     end
 
     def test_it_can_get_total_quantity
-      merchant = Merchant.find_by_id("2")
+      merchant = Merchant.find_by_id(2)
       assert_equal 1011, merchant.quantity
     end
 
     def test_it_can_get_total_revenue
-      merchant = Merchant.find_by_id("2")
+      merchant = Merchant.find_by_id(2)
       assert_equal 436253.19, merchant.revenue
     end
 
     def test_it_can_get_total_revenue_per_date
-      merchant = Merchant.find_by_id("26")
+      merchant = Merchant.find_by_id(26)
       assert_equal 0.9163588E5, merchant.revenue("2012-03-25 09:54:09 UTC")
     end
 
     def test_it_can_find_all_customers
-      merchant = Merchant.find_by_id("25")
+      merchant = Merchant.find_by_id(25)
       assert_equal 46, merchant.customers.count
     end
 
     def test_it_can_find_a_favorite_customer
-      merchant = Merchant.find_by_id("25")
+      merchant = Merchant.find_by_id(25)
       assert_equal "198 Camden", merchant.favorite_customer.to_s
     end
 

@@ -7,11 +7,11 @@ module SalesEngine
     end
 
     def test_it_is_initialized_from_an_array_of_data
-      assert_equal "1", Item.items[0].id
+      assert_equal 1, Item.items[0].id
       assert_equal "Item Qui Esse", Item.items[0].name
       assert_equal "Nihil autem sit odio inventore deleniti. Est laudantium ratione distinctio laborum. Minus voluptatem nesciunt assumenda dicta voluptatum porro.", Item.items[0].description
-      assert_equal "75107", Item.items[0].unit_price
-      assert_equal "1", Item.items[0].merchant_id
+      assert_equal BigDecimal.new(("75107").to_i / 100.0, 12), Item.items[0].unit_price
+      assert_equal 1, Item.items[0].merchant_id
       assert_equal Date.parse("2012-03-27 14:53:59 UTC"), Item.items[0].created_at
       assert_equal Date.parse("2012-03-27 14:53:59 UTC"), Item.items[0].updated_at
     end
@@ -23,7 +23,7 @@ module SalesEngine
     end
 
     def test_it_can_find_an_item_by_id
-      assert_equal "5:Item Expedita Aliquam", Item.find_by_id("5").to_s
+      assert_equal "5:Item Expedita Aliquam", Item.find_by_id(5).to_s
     end
 
     def test_it_can_find_an_item_by_name
@@ -35,11 +35,12 @@ module SalesEngine
     end
 
     def test_it_can_find_an_item_by_unit_price
-      assert_equal "1980:Item Ut Voluptatem", Item.find_by_unit_price("98771").to_s
+      unit_price = BigDecimal.new(("75107").to_i / 100.0, 12)
+      assert_equal "1:Item Qui Esse", Item.find_by_unit_price(unit_price).to_s
     end
 
     def test_it_can_find_an_item_by_merchant_id
-      assert_equal "1:Item Qui Esse", Item.find_by_merchant_id("1").to_s
+      assert_equal "1:Item Qui Esse", Item.find_by_merchant_id(1).to_s
     end
 
     def test_it_can_find_an_item_by_created_at
@@ -51,7 +52,7 @@ module SalesEngine
     end
 
     def test_it_can_find_all_items_by_id
-      items = Item.find_all_by_id("5")
+      items = Item.find_all_by_id(5)
       assert_equal 1, items.count
       items.each do |item|
         assert_includes "5:Item Expedita Aliquam", item.to_s
@@ -75,7 +76,8 @@ module SalesEngine
     end
 
     def test_it_can_find_all_items_by_unit_price
-      items = Item.find_all_by_unit_price("68723")
+      unit_price = BigDecimal.new(("68723").to_i / 100.0, 12)
+      items = Item.find_all_by_unit_price(unit_price)
       assert_equal 1, items.count
       items.each do |item|
         assert_includes "5:Item Expedita Aliquam", item.to_s
@@ -83,7 +85,7 @@ module SalesEngine
     end
 
     def test_it_can_find_all_items_by_merchant_id
-      items = Item.find_all_by_merchant_id("1")
+      items = Item.find_all_by_merchant_id(1)
       assert_equal 15, items.count
       items.each do |item|
         assert_includes items[0..14].to_s, item.to_s
@@ -103,17 +105,17 @@ module SalesEngine
     end
 
     def test_it_can_find_all_invoice_items_related_to_item
-      item = Item.find_by_id("2")
+      item = Item.find_by_id(2)
       assert_equal 17, item.invoice_items.count
     end
 
     def test_it_can_find_a_merchant_related_to_item
-      item = Item.find_by_id("2")
+      item = Item.find_by_id(2)
       assert_equal "1:Schroeder-Jerde", item.merchant.to_s
     end
 
     def test_it_can_get_revenue_for_item
-      item = Item.find_by_id("227")
+      item = Item.find_by_id(227)
       assert_equal "0.114839374E7", item.revenue.to_s
     end
 

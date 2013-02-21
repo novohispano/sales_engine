@@ -7,8 +7,8 @@ module SalesEngine
     end
 
     def test_it_is_initialized_from_an_array_of_data
-      assert_equal "1", Transaction.transactions[0].id
-      assert_equal "1", Transaction.transactions[0].invoice_id
+      assert_equal 1, Transaction.transactions[0].id
+      assert_equal 1, Transaction.transactions[0].invoice_id
       assert_equal "4654405418249632", Transaction.transactions[0].credit_card_number
       assert_equal nil, Transaction.transactions[0].credit_card_expiration_date
       assert_equal "success", Transaction.transactions[0].result
@@ -23,11 +23,11 @@ module SalesEngine
     end
 
     def test_it_can_find_a_transaction_by_id
-      assert_equal "5: 6: success", Transaction.find_by_id("5").to_s
+      assert_equal "5: 6: success", Transaction.find_by_id(5).to_s
     end
 
     def test_it_can_find_a_transaction_by_invoice_id
-      assert_equal "5: 6: success", Transaction.find_by_invoice_id("6").to_s
+      assert_equal "5: 6: success", Transaction.find_by_invoice_id(6).to_s
     end
 
     def test_it_can_find_a_transaction_by_result
@@ -43,7 +43,7 @@ module SalesEngine
     end
 
     def test_it_can_find_all_transactions_by_id
-      transactions = Transaction.find_all_by_id("5")
+      transactions = Transaction.find_all_by_id(5)
       assert_equal 1, transactions.count
       transactions.each do |transaction|
         assert_includes "5: 6: success", transaction.to_s
@@ -51,7 +51,7 @@ module SalesEngine
     end
 
     def test_it_can_find_all_transactions_by_invoice_id
-      transactions = Transaction.find_all_by_invoice_id("13")
+      transactions = Transaction.find_all_by_invoice_id(13)
       assert_equal 2, transactions.count
       transactions.each do |transaction|
         assert_includes "14: 13: failed, 15: 13: failed", transaction.to_s
@@ -76,7 +76,7 @@ module SalesEngine
     end
 
     def test_it_can_find_an_invoice_associated_with_a_transaction
-      transaction = Transaction.find_by_id("11")
+      transaction = Transaction.find_by_id(11)
       assert_equal "12 3 8 shipped", transaction.invoice.to_s
     end
   end
