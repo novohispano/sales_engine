@@ -77,7 +77,7 @@ module SalesEngine
     end
 
     def pending_invoices
-      invoices - successful_invoices      
+      invoices - successful_invoices
     end
 
     def successful_invoices_for_date(date)
@@ -112,7 +112,7 @@ module SalesEngine
     end
 
     def favorite_customer
-      customers.group_by { |customer| customer }.max_by do |customer, count| 
+      customers.group_by { |customer| customer }.max_by do |customer, count|
         count.size
       end.first
     end

@@ -5,7 +5,7 @@ module SalesEngine
                 :last_name,
                 :created_at,
                 :updated_at
-    
+
     def initialize(data)
       @id = data["id"].to_i
       @first_name = data["first_name"]
@@ -21,7 +21,7 @@ module SalesEngine
     def to_s
       "#{id} #{first_name}"
     end
-        
+
     def self.random
       @customers.sample
     end
@@ -71,7 +71,7 @@ module SalesEngine
     end
 
     def favorite_merchant
-      merchants.group_by do |merchant| 
+      merchants.group_by do |merchant|
         merchant
       end.max_by { |merchant, merchant_group| merchant_group.size }.first
     end

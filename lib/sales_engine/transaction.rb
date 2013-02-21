@@ -35,47 +35,47 @@ module SalesEngine
     end
 
     def self.find_by_id(id)
-      @transactions.find { |transaction| transaction.id == id }
+      @transactions.find { |txn| txn.id == id }
     end
 
     def self.find_by_invoice_id(invoice_id)
-      @transactions.find { |transaction| transaction.invoice_id == invoice_id }
+      @transactions.find { |txn| txn.invoice_id == invoice_id }
     end
 
     def self.find_by_result(result)
-      @transactions.find { |transaction| transaction.result == result }
+      @transactions.find { |txn| txn.result == result }
     end
 
     def self.find_by_created_at(created_at)
-      @transactions.find { |transaction| transaction.created_at == created_at }
+      @transactions.find { |txn| txn.created_at == created_at }
     end
 
     def self.find_by_updated_at(updated_at)
-      @transactions.find { |transaction| transaction.updated_at == updated_at }
+      @transactions.find { |txn| txn.updated_at == updated_at }
     end
 
     def self.find_all_by_id(id)
-      @transactions.find_all { |transaction| transaction.id == id }
+      @transactions.find_all { |txn| txn.id == id }
     end
 
     def self.find_all_by_invoice_id(invoice_id)
-      @transactions.find_all { |transaction| transaction.invoice_id == invoice_id }
+      @transactions.find_all { |txn| txn.invoice_id == invoice_id }
     end
 
     def self.find_all_by_result(result)
-      @transactions.find_all { |transaction| transaction.result == result }
+      @transactions.find_all { |txn| txn.result == result }
     end
 
     def self.find_all_by_created_at(created_at)
-      @transactions.find_all { |transaction| transaction.created_at == created_at }
+      @transactions.find_all { |txn| txn.created_at == created_at }
     end
 
     def self.find_all_by_updated_at(updated_at)
-      @transactions.find_all { |transaction| transaction.updated_at == updated_at }
+      @transactions.find_all { |txn| txn.updated_at == updated_at }
     end
 
     def self.find_by_credit_card_number(number)
-      @transactions.find { |transaction| transaction.credit_card_number == number }
+      @transactions.find { |txn| txn.credit_card_number == number }
     end
 
     def invoice

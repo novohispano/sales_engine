@@ -1,13 +1,13 @@
 module SalesEngine
   class InvoiceItem
-    attr_reader :id, 
-                :item_id, 
-                :invoice_id, 
-                :quantity, 
-                :unit_price, 
-                :created_at, 
+    attr_reader :id,
+                :item_id,
+                :invoice_id,
+                :quantity,
+                :unit_price,
+                :created_at,
                 :updated_at
-    
+
     def initialize(data)
       @id = data["id"].to_i
       @item_id = data["item_id"].to_i
@@ -35,61 +35,61 @@ module SalesEngine
     end
 
     def self.find_by_id(id)
-      @invoice_items.find { |invoice_item|invoice_item.id == id }
+      @invoice_items.find { |i_item| i_item.id == id }
     end
 
     def self.find_by_item_id(item_id)
-      @invoice_items.find { |invoice_item| invoice_item.item_id == item_id }
+      @invoice_items.find { |i_item| i_item.item_id == item_id }
     end
-    
+
     def self.find_by_invoice_id(invoice_id)
-      @invoice_items.find { |invoice_item| invoice_item.invoice_id == invoice_id }
+      @invoice_items.find { |i_item| i_item.invoice_id == invoice_id }
     end
 
     def self.find_by_quantity(quantity)
-      @invoice_items.find { |invoice_item| invoice_item.quantity == quantity }
+      @invoice_items.find { |i_item| i_item.quantity == quantity }
     end
 
     def self.find_by_unit_price(unit_price)
-      @invoice_items.find { |invoice_item| invoice_item.unit_price == unit_price }
+      @invoice_items.find { |i_item| i_item.unit_price == unit_price }
     end
 
     def self.find_by_created_at(created_at)
-      @invoice_items.find { |invoice_item| invoice_item.created_at == created_at }
+      @invoice_items.find { |i_item| i_item.created_at == created_at }
     end
 
     def self.find_by_updated_at(updated_at)
-      @invoice_items.find { |invoice_item| invoice_item.updated_at == updated_at }
+      @invoice_items.find { |i_item| i_item.updated_at == updated_at }
     end
 
     def self.find_all_by_id(id)
-      @invoice_items.select { |invoice_item| invoice_item.id == id }
-    end  
+      @invoice_items.select { |i_item| i_item.id == id }
+    end
 
     def self.find_all_by_item_id(item_id)
-      @invoice_items.select { |invoice_item| invoice_item.item_id == item_id }
-    end  
+      @invoice_items.select { |i_item| i_item.item_id == item_id }
+    end
 
     def self.find_all_by_invoice_id(invoice_id)
-      @invoice_items.select { |invoice_item| invoice_item.invoice_id == invoice_id }
-    end  
+      @invoice_items.select { |i_item| i_item.invoice_id == invoice_id }
+    end
 
     def self.find_all_by_quantity(quantity)
-      @invoice_items.select { |invoice_item| invoice_item.quantity == quantity }
+      @invoice_items.select { |i_item| i_item.quantity == quantity }
     end
 
     def self.find_all_by_unit_price(unit_price)
-      @invoice_items.select { |invoice_item| invoice_item.unit_price == unit_price }
+      @invoice_items.select { |i_item| i_item.unit_price == unit_price }
     end
 
     def self.find_all_by_created_at(created_at)
-      @invoice_items.select { |invoice_item| invoice_item.created_at == created_at }
+      @invoice_items.select { |i_item| i_item.created_at == created_at }
     end
 
     def self.find_all_by_updated_at(updated_at)
-      @invoice_items.select { |invoice_item| invoice_item.updated_at == updated_at }
+      @invoice_items.select { |i_item| i_item.updated_at == updated_at }
     end
-    
+
     def successful?
       invoice.successful?
     end
