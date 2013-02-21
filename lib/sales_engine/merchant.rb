@@ -132,7 +132,7 @@ module SalesEngine
     end
 
     def customers_with_pending_invoices
-      pending_invoices.collect{|invoice| invoice.customer}
+      pending_invoices.collect { |invoice| invoice.customer }
     end
   end
 end

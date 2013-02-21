@@ -117,5 +117,26 @@ module SalesEngine
       assert_equal 10, top_merchants.count 
       assert_equal "Dicki-Bednar", top_merchants.first.name
     end
+
+    def test_it_can_find_invoices_by_date
+      date = Date.parse("2012-03-25 09:54:09 UTC")
+      merchant = Merchant.find_by_id(26)
+      assert_equal 4, merchant.invoices_by_date(date).count
+    end
+
+    def test_it_can_find_pending_invoices
+      merchant = Merchant.find_by_id(34)
+      assert_equal 2, merchant.pending_invoices.count
+    end
+
+    def test_it_can_find_revenue_by_date
+      date = Date.parse("2012-03-25 09:54:09 UTC")
+      assert_equal "0.28307189E7", Merchant.revenue(date).to_s
+    end
+
+    def test_it_can_find_customers_with_pending_invoices
+      merchant = Merchant.find_by_id(34)
+      assert_equal 2, merchant.customers_with_pending_invoices.count
+    end
   end
 end

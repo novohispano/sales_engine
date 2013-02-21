@@ -102,5 +102,10 @@ module SalesEngine
       invoice_item = InvoiceItem.find_by_id(1)
       assert_equal 681.75, invoice_item.subtotal
     end
+
+    def test_it_can_find_all_invoices
+      invoice_item = InvoiceItem.find_by_id(1)
+      assert_equal 1, invoice_item.invoices.count
+    end
   end
 end

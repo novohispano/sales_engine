@@ -128,5 +128,20 @@ module SalesEngine
       assert_equal 20, Item.most_items(20).count
       assert_equal "[227:Item Dicta Autem]", Item.most_revenue(1).to_s
     end
+
+    def test_it_can_find_successful_invoices
+      item = Item.find_by_id(2)
+      assert_equal 15, item.successful_invoices.count
+    end
+
+    def test_it_can_find_invoices
+      item = Item.find_by_id(2)
+      assert_equal 17, item.invoices.count
+    end
+
+    def test_it_can_find_best_day
+      item = Item.find_by_id(2)
+      assert_equal "2012-03-24", item.best_day.to_s
+    end
   end
 end

@@ -114,7 +114,7 @@ module SalesEngine
       invoice_items.select { |invoice_item| invoice_item.successful? }
     end
 
-    def sucessful_invoices
+    def successful_invoices
       invoices.select { |invoice| invoice.successful? }
     end
 

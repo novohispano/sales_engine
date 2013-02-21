@@ -79,5 +79,9 @@ module SalesEngine
       transaction = Transaction.find_by_id(11)
       assert_equal "12 3 8 shipped", transaction.invoice.to_s
     end
+
+    def test_it_can_find_by_credit_card_number
+      assert_equal "2: 2: success", Transaction.find_by_credit_card_number("4580251236515201").to_s
+    end
   end
 end
