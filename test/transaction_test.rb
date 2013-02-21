@@ -11,8 +11,8 @@ class TransactionTest < MiniTest::Unit::TestCase
     assert_equal "4654405418249632", Transaction.transactions[0].credit_card_number
     assert_equal nil, Transaction.transactions[0].credit_card_expiration_date
     assert_equal "success", Transaction.transactions[0].result
-    assert_equal "2012-03-27 14:54:09 UTC", Transaction.transactions[0].created_at
-    assert_equal "2012-03-27 14:54:09 UTC", Transaction.transactions[0].updated_at
+    assert_equal Date.parse("2012-03-27 14:54:09 UTC"), Transaction.transactions[0].created_at
+    assert_equal Date.parse("2012-03-27 14:54:09 UTC"), Transaction.transactions[0].updated_at
   end
 
   def test_it_can_return_a_random_value
@@ -34,11 +34,11 @@ class TransactionTest < MiniTest::Unit::TestCase
   end
 
   def test_it_can_find_a_transaction_by_created_at
-    assert_equal "1: 1: success", Transaction.find_by_created_at("2012-03-27 14:54:09 UTC").to_s
+    assert_equal "1: 1: success", Transaction.find_by_created_at(Date.parse("2012-03-27 14:54:09 UTC")).to_s
   end
 
   def test_it_can_find_a_transaction_by_updated_at
-    assert_equal "1: 1: success", Transaction.find_by_updated_at("2012-03-27 14:54:09 UTC").to_s
+    assert_equal "1: 1: success", Transaction.find_by_updated_at(Date.parse("2012-03-27 14:54:09 UTC")).to_s
   end
 
   def test_it_can_find_all_transactions_by_id
@@ -63,15 +63,14 @@ class TransactionTest < MiniTest::Unit::TestCase
   end
 
   def test_it_can_find_all_transactions_by_created_at
-    transactions = Transaction.find_all_by_created_at("2012-03-27 14:54:09 UTC")
+    created_at = Date.parse("2012-03-27 14:54:09 UTC")
+    transactions = Transaction.find_all_by_created_at(created_at)
     assert_equal 2, transactions.count
-    transactions.each do |transaction|
-      assert_includes "1: 1: success, 2: 2: success", transaction.to_s
-    end
   end
 
   def test_it_can_find_all_transactions_by_updated_at
-    transactions = Transaction.find_all_by_updated_at("2012-03-27 14:54:09 UTC")
+    updated_at = Date.parse("2012-03-27 14:54:09 UTC")
+    transactions = Transaction.find_all_by_updated_at(updated_at)
     assert_equal 2, transactions.count
   end
 
