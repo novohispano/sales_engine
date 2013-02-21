@@ -11,8 +11,8 @@ class Invoice
     @customer_id = data["customer_id"]
     @merchant_id= data ["merchant_id"]
     @status = data["status"]
-    @created_at = data["created_at"]
-    @updated_at = data["updated_at"]
+    @created_at = Date.parse(data["created_at"])
+    @updated_at = Date.parse(data["updated_at"])
   end
 
   def self.build_data(contents)

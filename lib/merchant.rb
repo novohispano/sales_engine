@@ -7,8 +7,8 @@ class Merchant
   def initialize(data)
     @id = data["id"]
     @name = data["name"]
-    @created_at = data["created_at"]
-    @updated_at = data["updated_at"]
+    @created_at = Date.parse(data["created_at"])
+    @updated_at = Date.parse(data["updated_at"])
   end
 
   def self.build_data(contents)
@@ -93,6 +93,7 @@ class Merchant
 
   def revenue(date = nil)
     if date
+      date = Date.parse(date)
       sum_invoices(successful_invoices_for_date(date))
     else
       sum_invoices(successful_invoices)
