@@ -146,6 +146,8 @@ module SalesEngine
         InvoiceItem.invoice_items << invoice_item
       end
 
+      invoices << invoice
+
       return invoice
     end
 
